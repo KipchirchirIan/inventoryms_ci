@@ -33,7 +33,14 @@
 		}
 	},
 	"scripts": {
-		"test": "phpunit"
+		"test": [
+			"@putenv XDEBUG_MODE=coverage",
+			"phpunit --configuration phpunit.xml"
+		],
+		"test:coverage": [
+			"@putenv XDEBUG_MODE=coverage",
+			"phpunit --configuration phpunit.xml"
+		]
 	},
 	"support": {
 		"forum": "http://forum.codeigniter.com/",
