@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://localhost:8080/';
+	public $baseURL = '';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -462,4 +462,23 @@ class App extends BaseConfig
 	 * @var boolean
 	 */
 	public $CSPEnabled = false;
+
+    /**
+     * App constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->baseURL = $this->setBaseUrl();
+    }
+
+    /**
+     * Sets site base URL based on environment
+     *
+     * @return string Site base URL
+     */
+    public function setBaseUrl()
+    {
+        return ($_ENV['CI_ENVIRONMENT'] === 'development') ? 'http://localhost:8080/' : 'http://example.com/';
+    }
 }
