@@ -1,8 +1,8 @@
 {
-	"name": "codeigniter4/appstarter",
+	"name": "bitrevlabs/inventory_management_system",
 	"type": "project",
-	"description": "CodeIgniter4 starter app",
-	"homepage": "https://codeigniter.com",
+	"description": "Inventory Management System",
+	"homepage": "https://bitrevlabs.co.ke",
 	"license": "MIT",
 	"require": {
 		"php": "^7.3||^8.0",
@@ -12,7 +12,8 @@
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
 		"mikey179/vfsstream": "^1.6",
-		"phpunit/phpunit": "^9.1"
+		"phpunit/phpunit": "^9.1",
+		"roave/security-advisories": "dev-latest"
 	},
 	"suggest": {
 		"ext-fileinfo": "Improves mime type detection for files"
