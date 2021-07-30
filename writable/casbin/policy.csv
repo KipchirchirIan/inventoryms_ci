@@ -1,0 +1,14 @@
+p, user_group_emp, data_group_item, update
+p, user_group_emp, data_group_item, read
+p, user_group_emp, data_group_admin, read
+p, user_group_emp, data_group, read
+p, user_group_admin, data_group_item, write
+p, user_group_admin, data_group_admin, read
+p, user_group_admin, data_group, read
+p, user_group_admin, data_group, write
+
+g2, employees, data_group
+g2, item_categories, data_group
+g2, uoms, data_group
+g2, items, data_group_item
+g2, admins, data_group_admin
