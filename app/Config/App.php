@@ -355,7 +355,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $CSRFTokenName = 'csrf_test_name';
+	public $CSRFTokenName = 'csrf_ims_token';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -381,7 +381,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $CSRFCookieName = 'csrf_cookie_name';
+	public $CSRFCookieName = 'csrf_ims_cookie';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -462,23 +462,4 @@ class App extends BaseConfig
 	 * @var boolean
 	 */
 	public $CSPEnabled = false;
-
-    /**
-     * App constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->baseURL = $this->setBaseUrl();
-    }
-
-    /**
-     * Sets site base URL based on environment
-     *
-     * @return string Site base URL
-     */
-    public function setBaseUrl()
-    {
-        return ($_ENV['CI_ENVIRONMENT'] === 'development') ? 'http://localhost:8080/' : 'http://example.com/';
-    }
 }
