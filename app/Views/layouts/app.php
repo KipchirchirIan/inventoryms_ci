@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inventory Management System &mdash; <?php echo $page_title ?? 'Home'; ?></title>
+    <title>Inventory Management System &mdash; <?php echo $page_title ?? 'Dashboard'; ?></title>
     <!-- General CSS   -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/modules/fontawesome/css/all.min.css">
@@ -16,6 +16,12 @@
     <link rel="stylesheet"
           href="<?php echo base_url(); ?>/assets/modules/weather-icon/css/weather-icons-wind.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/modules/summernote/summernote-bs4.css">
+
+    <?php if (service('uri')->getSegment(3) === 'checkInOut'|| service('uri')->getPath() === 'employee/item/index') : ?>
+    <link rel="stylesheet" href="<?= base_url('assets/modules/datatables/datatables.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') ?>">
+    <?php endif; ?>
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/style.css">
@@ -60,8 +66,13 @@
 <script src="<?php echo base_url(); ?>/assets/modules/summernote/summernote-bs4.js"></script>
 <script src="<?php echo base_url(); ?>/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
-<!-- Page Specific JS -->
-<?= script_tag('assets/js/page/index-0.js'); ?>
+<?php if (service('uri')->getSegment(3) === 'checkInOut' || service('uri')->getPath() === 'employee/item/index') : ?>
+<script src="<?= base_url('assets/modules/datatables/datatables.min.js') ?>"></script>
+<script src="<?= base_url('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') ?>"></script>
+<script src="<?= base_url('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') ?>"></script>
+<script src="<?= base_url('assets/modules/jquery-ui/jquery-ui.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/page/modules-datatables.js') ?>"></script>
+<?php endif; ?>
 
 <!-- Template JS File -->
 <script src="<?php echo base_url(); ?>/assets/js/scripts.js"></script>

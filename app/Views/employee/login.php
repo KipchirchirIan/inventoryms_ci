@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
-                            <form method="post" action="<?= base_url('login') ?>">
+                            <form method="post" action="<?= base_url('employee/login') ?>">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email"
@@ -90,6 +90,9 @@
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                         Login
                                     </button>
+                                </div>
+                                <div class="text-center">
+                                    <a href="<?=  base_url('admin/') ?>">Login as Admin</a>
                                 </div>
                             </form>
                         </div>
