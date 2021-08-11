@@ -7,7 +7,8 @@
 	"require": {
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
-		"casbin/casbin": "^3.6"
+		"casbin/casbin": "^3.6",
+		"doctrine/inflector": "^2.0"
 	},
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
@@ -29,17 +30,17 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\Support\\": "tests/_support"
+			"Tests\\Support\\": "tests/_support",
+			"App\\": "tests/app"
 		}
 	},
 	"scripts": {
 		"test": [
-			"@putenv XDEBUG_MODE=coverage",
 			"phpunit --configuration phpunit.xml"
 		],
 		"test:coverage": [
 			"@putenv XDEBUG_MODE=coverage",
-			"phpunit --configuration phpunit.xml"
+			"phpunit --colors --coverage-text=build/coverage.txt --coverage-html=build/coverage/ -d memory_limit=1024m"
 		]
 	},
 	"support": {
