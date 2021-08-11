@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'hhttps://inventoryms-ci.herokuapp.com/';
+	public $baseURL = 'https://inventoryms-ci.herokuapp.com/';
 
 	/**
 	 * --------------------------------------------------------------------------
