@@ -44,6 +44,7 @@ $RECYCLE.BIN/
 .env
 .env.prod
 .env.heroku
+.env.dev
 .vagrant
 Vagrantfile
 
