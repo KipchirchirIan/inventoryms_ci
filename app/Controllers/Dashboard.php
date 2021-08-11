@@ -15,9 +15,4 @@ class Home extends BaseController
 
 		return view('dash', $data);
 	}
-
-	public function welcome()
-    {
-        return view('welcome_message');
-    }
 }
