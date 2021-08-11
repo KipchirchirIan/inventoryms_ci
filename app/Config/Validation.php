@@ -40,4 +40,12 @@ class Validation
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------
+
+    public $admin_create = [
+        'first_name' => 'required|alpha',
+        'last_name' => 'required|alpha',
+        'position' => 'alpha_space|permit_empty',
+        'email' => 'required|valid_email',
+        'password' => 'required|min_length[8]',
+    ];
 }
