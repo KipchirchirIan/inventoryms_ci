@@ -26,6 +26,7 @@ class CreateAdminsTbl extends Migration
             'position' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
+                'null' => true,
             ],
             'email' => [
                 'type' => 'VARCHAR',
