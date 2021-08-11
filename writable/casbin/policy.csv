@@ -1,12 +1,23 @@
 p, user_group_emp, data_group_item, update
 p, user_group_emp, data_group_item, read
+p, user_group_emp, items_history, read
+p, user_group_emp, items_history, write
 p, user_group_emp, data_group_admin, read
 p, user_group_emp, data_group, read
 p, user_group_admin, data_group_item, write
+p, user_group_admin, data_group_item, read
 p, user_group_admin, data_group_admin, read
 p, user_group_admin, data_group, read
 p, user_group_admin, data_group, write
-
+p, user_group_admin, items_history, read
+p, user_group_admin, items_history, write
+g, janedoe@gmail.com, user_group_admin
+g, johndoe@mail.com, user_group_admin
+g, test@mail.com, user_group_admin
+g, mgilliam@mailinator.com, user_group_emp
+g, hequsygo@mailinator.com, user_group_emp
+g, test@employee.com, user_group_emp
+g, admin@mail.com, user_group_admin
 g2, employees, data_group
 g2, item_categories, data_group
 g2, uoms, data_group
