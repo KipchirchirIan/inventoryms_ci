@@ -18,13 +18,15 @@ class Item extends BaseController
         $this->itemModel = new ItemModel();
         $this->itemsHistoryModel = new ItemHistoryModel();
         $this->uomModel = new UomModel();
-        $this->itemsHistoryModel = new ItemHistoryModel();
+        $this->categoryModel = new CategoryModel();
         $this->session = \Config\Services::session();
         $this->inflector = InflectorFactory::create()->build();
         $this->uri = \Config\Services::uri();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
+        helper('inflector');
+        helper('uom');
     }
 
     public function index()
@@ -66,6 +68,7 @@ class Item extends BaseController
             'quantity' => 0,
             'note' => '',
             'uoms' => $this->uomModel->findAll(),
+            'categories' => $this->categoryModel->findAll(),
         ];
 
         return view('admin/item/create', $data);
@@ -82,6 +85,7 @@ class Item extends BaseController
             $description = $this->request->getPost('item_description');
             $qty = $this->request->getPost('quantity');
             $uom = $this->request->getPost('uom');
+            $category = $this->request->getPost('category');
             $note = $this->request->getPost('note');
 
             $post_data = [
@@ -89,6 +93,7 @@ class Item extends BaseController
                 'item_description' => $description,
                 'quantity' => $qty,
                 'uom' => $uom,
+                'category_id' => $category,
                 'note' => $note,
                 'added_by' => $this->session->get('imsa_email'),
                 'last_modified_by' => $this->session->get('imsa_email'),
@@ -97,7 +102,8 @@ class Item extends BaseController
             $validated = $this->validate([
                 'item_name' => ['label' => 'Item name', 'rules' => 'required'],
                 'quantity' => ['label' => 'Quantity', 'rules' => 'required|is_natural'],
-                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required']
+                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
+                'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
             ]);
 
             if ($validated) {
@@ -375,6 +381,30 @@ class Item extends BaseController
         }
 
         return redirect()->back();
+    }
+
+    public function history()
+    {
+        $data = array();
+        if (!$this->session->has('imsa_logged_in')) {
+            return redirect('admin/login');
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'items_history';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['items'] = $this->itemsHistoryModel->findAll(50, 0);
+            } else {
+                throw new \Exception('Request Denied!', 403);
+            }
+        } catch (CasbinException|\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return view('admin/item/history', $data);
     }
 
     public function formattedUoM($data = array())

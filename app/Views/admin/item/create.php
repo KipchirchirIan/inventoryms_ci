@@ -54,6 +54,18 @@
                                     <?= session()->getFlashdata('validation')['item_description'] ?? '' ?>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="category">Item Category</label>
+                                <select class="form-control <?= isset(session()->getFlashdata('validation')['category']) ? 'is-invalid' : '' ?>" name="category" id="category">
+                                    <option value="" disabled selected>--Select Category--</option>
+                                    <?php foreach ($categories as $category) : ?>
+                                        <option value="<?= $category['category_id'] ?>"><?= ucfirst($category['category_name']); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= session()->getFlashdata('validation')['category'] ?? '' ?>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
