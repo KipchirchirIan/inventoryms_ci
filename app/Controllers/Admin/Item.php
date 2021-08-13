@@ -18,6 +18,7 @@ class Item extends BaseController
         $this->itemModel = new ItemModel();
         $this->itemsHistoryModel = new ItemHistoryModel();
         $this->uomModel = new UomModel();
+        $this->categoryModel = new CategoryModel();
         $this->itemsHistoryModel = new ItemHistoryModel();
         $this->session = \Config\Services::session();
         $this->inflector = InflectorFactory::create()->build();
@@ -66,6 +67,7 @@ class Item extends BaseController
             'quantity' => 0,
             'note' => '',
             'uoms' => $this->uomModel->findAll(),
+            'categories' => $this->categoryModel->findAll(),
         ];
 
         return view('admin/item/create', $data);
@@ -82,6 +84,7 @@ class Item extends BaseController
             $description = $this->request->getPost('item_description');
             $qty = $this->request->getPost('quantity');
             $uom = $this->request->getPost('uom');
+            $category = $this->request->getPost('category');
             $note = $this->request->getPost('note');
 
             $post_data = [
@@ -89,6 +92,7 @@ class Item extends BaseController
                 'item_description' => $description,
                 'quantity' => $qty,
                 'uom' => $uom,
+                'category_id' => $category,
                 'note' => $note,
                 'added_by' => $this->session->get('imsa_email'),
                 'last_modified_by' => $this->session->get('imsa_email'),
@@ -97,7 +101,8 @@ class Item extends BaseController
             $validated = $this->validate([
                 'item_name' => ['label' => 'Item name', 'rules' => 'required'],
                 'quantity' => ['label' => 'Quantity', 'rules' => 'required|is_natural'],
-                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required']
+                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
+                'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
             ]);
 
             if ($validated) {

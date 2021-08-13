@@ -21,6 +21,7 @@ class ItemModel extends Model
         'item_description',
         'quantity',
         'uom',
+        'category_id',
         'note',
         'added_by',
         'last_modified_by',
