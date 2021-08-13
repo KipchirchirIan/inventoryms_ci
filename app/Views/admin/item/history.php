@@ -53,29 +53,11 @@
                                         <tr>
                                             <td><?= $item['item_history_id'] ?></td>
                                             <td><?= $item['item_name'] ?></td>
-                                            <td><?= $item['check_in'] ?>&nbsp;<?php
-                                                if ($item['check_in'] > 1) {
-                                                    if (strtolower($item['uom_full']) === 'none') {
-                                                        echo ucwords(plural($item['item_name']));
-                                                    } else {
-                                                        echo ucwords(plural($item['uom_full']));
-                                                    }
-                                                } else {
-                                                    echo ucwords($item['uom_full']);
-                                                }
-                                                ?>
+                                            <td><?= $item['check_in'] ?>&nbsp;
+                                                <?= uom_formatter($item['item_name'], $item['check_in'], $item['uom_full']) ?>
                                             </td>
-                                            <td><?= $item['check_out'] ?>&nbsp;<?php
-                                                if ($item['check_out'] > 1) {
-                                                    if (strtolower($item['uom_full']) === 'none') {
-                                                        echo ucwords(plural($item['item_name']));
-                                                    } else {
-                                                        echo ucwords(plural($item['uom_full']));
-                                                    }
-                                                } else {
-                                                    echo ucwords($item['uom_full']);
-                                                }
-                                                ?>
+                                            <td><?= $item['check_out'] ?>&nbsp;
+                                                <?= uom_formatter($item['item_name'], $item['check_out'], $item['uom_full']) ?>
                                             </td>
                                             <td><?= $item['first_name'] . ' ' . $item['last_name'] ?></td>
                                             <td><?= $item['created_at'] ?></td>

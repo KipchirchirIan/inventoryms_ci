@@ -26,6 +26,7 @@ class Item extends BaseController
 
         helper('html');
         helper('inflector');
+        helper('uom');
     }
 
     public function index()

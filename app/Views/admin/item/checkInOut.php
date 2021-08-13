@@ -14,7 +14,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Check In/Out Items</h4>
-                            <a href="<?= base_url('admin/item/history') ?>" class="btn btn-primary ml-auto" role="button">View History</a>
+                            <a href="<?= base_url('admin/item/history') ?>" class="btn btn-primary ml-auto"
+                               role="button">View History</a>
                         </div>
                         <div class="card-body">
                             <?php if (session()->has('success_message')) : ?>
@@ -54,17 +55,7 @@
                                             <td><?= $item['item_name'] ?></td>
                                             <td><?= $item['item_description'] ?></td>
                                             <td><?= $item['quantity'] ?>
-                                                <?php
-                                                if ($item['quantity'] > 1) {
-                                                    if (strtolower($item['uom_full']) === 'none') {
-                                                        echo ucwords($inflector->pluralize($item['item_name']));
-                                                    } else {
-                                                        echo ucwords($inflector->pluralize($item['uom_full']));
-                                                    }
-                                                } else {
-                                                    echo ucwords($item['uom_full']);
-                                                }
-                                                ?>
+                                                &nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('admin/item/checkIn/' . $item['item_id']) ?>"
@@ -73,12 +64,12 @@
                                                    title="Check Out"><i class="fas fa-caret-down">&nbsp;</i></a>
                                             </td>
                                         </tr>
-                                        <?php endforeach; ?>
-                                        <?php if (count($items) < 1) : ?>
-                                            <tr>
-                                                <td colspan="8" class="text-center"><strong>0 records found</strong></td>
-                                            </tr>
-                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php if (count($items) < 1) : ?>
+                                        <tr>
+                                            <td colspan="8" class="text-center"><strong>0 records found</strong></td>
+                                        </tr>
+                                    <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>

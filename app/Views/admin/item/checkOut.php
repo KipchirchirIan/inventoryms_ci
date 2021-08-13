@@ -44,7 +44,7 @@
                         </div>
                         <div>
                             <p class="m-0"><strong>Quantity</strong></p>
-                            <p class="ml-2"><?= $item['quantity'] ?>&nbsp;<?= $formattedUoM; ?>
+                            <p class="ml-2"><?= $item['quantity'] ?>&nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
                             </p>
                         </div>
                         <div>
@@ -54,7 +54,7 @@
                                     <input type="number" class="form-control w-25 d-inline" name="checkout_qty" id="checkout_qty"
                                            tabindex="1"
                                            min="1">
-                                    <span class="ml-1"><?= $formattedUoM; ?></span>
+                                    <span class="ml-1"><?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?></span>
                                 </div>
 
                                 <div class="form-group">
