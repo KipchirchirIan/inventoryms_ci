@@ -13,8 +13,7 @@
                 <div class="col-12 col-md-9 col-lg-9">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Check In/Out Items</h4>
-                            <a href="<?= base_url('admin/item/history') ?>" class="btn btn-primary ml-auto" role="button">View History</a>
+                            <h4>List of items</h4>
                         </div>
                         <div class="card-body">
                             <?php if (session()->has('success_message')) : ?>
@@ -40,45 +39,59 @@
                                 <table class="table table-bordered table-md" id="itemsTable">
                                     <thead>
                                     <tr>
-                                        <td>ID #</td>
-                                        <td>Name</td>
-                                        <td>Description</td>
-                                        <td>Quantity</td>
-                                        <td>Action</td>
+                                        <th>ID #</th>
+                                        <th>Name</th>
+                                        <th>Checked In</th>
+                                        <th>Checked Out</th>
+                                        <th>Checked By</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php foreach ($items as $item) : ?>
                                         <tr>
-                                            <td><?= $item['item_id'] ?></td>
+                                            <td><?= $item['item_history_id'] ?></td>
                                             <td><?= $item['item_name'] ?></td>
-                                            <td><?= $item['item_description'] ?></td>
-                                            <td><?= $item['quantity'] ?>
-                                                <?php
-                                                if ($item['quantity'] > 1) {
+                                            <td><?= $item['check_in'] ?>&nbsp;<?php
+                                                if ($item['check_in'] > 1) {
                                                     if (strtolower($item['uom_full']) === 'none') {
-                                                        echo ucwords($inflector->pluralize($item['item_name']));
+                                                        echo ucwords(plural($item['item_name']));
                                                     } else {
-                                                        echo ucwords($inflector->pluralize($item['uom_full']));
+                                                        echo ucwords(plural($item['uom_full']));
                                                     }
                                                 } else {
                                                     echo ucwords($item['uom_full']);
                                                 }
                                                 ?>
                                             </td>
+                                            <td><?= $item['check_out'] ?>&nbsp;<?php
+                                                if ($item['check_out'] > 1) {
+                                                    if (strtolower($item['uom_full']) === 'none') {
+                                                        echo ucwords(plural($item['item_name']));
+                                                    } else {
+                                                        echo ucwords(plural($item['uom_full']));
+                                                    }
+                                                } else {
+                                                    echo ucwords($item['uom_full']);
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?= $item['first_name'] . ' ' . $item['last_name'] ?></td>
+                                            <td><?= $item['created_at'] ?></td>
                                             <td>
-                                                <a href="<?= base_url('admin/item/checkIn/' . $item['item_id']) ?>"
-                                                   title="Check In"><i class="fas fa-caret-up">&nbsp;</i></a>
-                                                <a href="<?= base_url('admin/item/checkOut/' . $item['item_id']) ?>"
-                                                   title="Check Out"><i class="fas fa-caret-down">&nbsp;</i></a>
+                                                <a href="#"
+                                                   title="Undo"><i class="fas fa-undo">&nbsp;</i></a>
+                                                <a href="#"
+                                                   title="Redo"><i class="fas fa-redo">&nbsp;</i></a>
                                             </td>
                                         </tr>
-                                        <?php endforeach; ?>
-                                        <?php if (count($items) < 1) : ?>
-                                            <tr>
-                                                <td colspan="8" class="text-center"><strong>0 records found</strong></td>
-                                            </tr>
-                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php if (count($items) < 1) : ?>
+                                        <tr>
+                                            <td colspan="8" class="text-center"><strong>0 records found</strong></td>
+                                        </tr>
+                                    <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>

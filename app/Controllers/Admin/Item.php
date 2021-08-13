@@ -19,13 +19,13 @@ class Item extends BaseController
         $this->itemsHistoryModel = new ItemHistoryModel();
         $this->uomModel = new UomModel();
         $this->categoryModel = new CategoryModel();
-        $this->itemsHistoryModel = new ItemHistoryModel();
         $this->session = \Config\Services::session();
         $this->inflector = InflectorFactory::create()->build();
         $this->uri = \Config\Services::uri();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
+        helper('inflector');
     }
 
     public function index()
@@ -380,6 +380,30 @@ class Item extends BaseController
         }
 
         return redirect()->back();
+    }
+
+    public function history()
+    {
+        $data = array();
+        if (!$this->session->has('imsa_logged_in')) {
+            return redirect('admin/login');
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'items_history';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['items'] = $this->itemsHistoryModel->findAll(50, 0);
+            } else {
+                throw new \Exception('Request Denied!', 403);
+            }
+        } catch (CasbinException|\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return view('admin/item/history', $data);
     }
 
     public function formattedUoM($data = array())
