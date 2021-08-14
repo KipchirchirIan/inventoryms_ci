@@ -23,6 +23,7 @@ class Item extends BaseController
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
+        helper('uom');
     }
 
     public function index()

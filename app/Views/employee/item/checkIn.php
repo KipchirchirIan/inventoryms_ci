@@ -44,17 +44,20 @@
                         </div>
                         <div>
                             <p class="m-0"><strong>Quantity</strong></p>
-                            <p class="ml-2"><?= $item['quantity'] ?>&nbsp;<?= $formattedUoM; ?>
+                            <p class="ml-2"><?= $item['quantity'] ?>
+                                &nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
                             </p>
                         </div>
                         <div>
-                            <form action="<?= base_url("employee/item/updateCheckIn/{$item['item_id']}") ?>" method="post">
+                            <form action="<?= base_url("employee/item/updateCheckIn/{$item['item_id']}") ?>"
+                                  method="post">
                                 <div class="form-group">
                                     <label for="checkin_qty" class="d-block">Check In Quantity</label>
-                                    <input type="number" class="form-control w-25 d-inline" name="checkin_qty" id="checkin_qty"
+                                    <input type="number" class="form-control w-25 d-inline" name="checkin_qty"
+                                           id="checkin_qty"
                                            tabindex="1"
                                            min="1">
-                                    <span class="ml-1"><?= $formattedUoM; ?></span>
+                                    <span class="ml-1"><?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?></span>
                                 </div>
 
                                 <div class="form-group">
