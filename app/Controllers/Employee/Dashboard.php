@@ -66,7 +66,7 @@ class Dashboard extends BaseController
 
                 $this->session->setFlashdata('error_message', 'Wrong Email/Password Combination!');
 
-                return view('employee/login');
+                return redirect()->back();
             }
 
             return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
