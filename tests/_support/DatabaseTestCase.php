@@ -2,6 +2,7 @@
 
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
+use Tests\Support\Database\Seeds\SuperAdminSeeder;
 
 class DatabaseTestCase extends CIUnitTestCase
 {
@@ -20,7 +21,7 @@ class DatabaseTestCase extends CIUnitTestCase
 	 *
 	 * @var string|array
 	 */
-	protected $seed = 'Tests\Support\Database\Seeds\ExampleSeeder';
+	protected $seed = SuperAdminSeeder::class;
 
 	/**
 	 * The path to the seeds directory.
