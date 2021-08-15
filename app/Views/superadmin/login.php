@@ -35,7 +35,7 @@
             <?= session()->getFlashdata('error_message'); ?>
         </div>
         <?php endif; ?>
-        <form class="" method="post">
+        <form class="" action="<?= base_url('superadmin/login') ?>" method="post">
             <?= csrf_field(); ?>
             <div class="form-group">
                 <label class="sr-only" for="email">Email address</label>
