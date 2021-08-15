@@ -48,11 +48,11 @@
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email"
-                                           class="form-control <?= (isset($validation) && $validation->hasError('email')) ? 'is-invalid' : ''; ?>"
-                                           name="email" value="<?= $employee['email'] ?? ''; ?>" tabindex="1" autofocus>
-                                    <?php if (isset($validation) && $validation->hasError('email')): ?>
+                                           class="form-control <?= isset(session()->getFlashdata('validation')['email']) ? 'is-invalid' : ''; ?>"
+                                           name="email" value="<?= old('email') ?? $employee['email'] ?? ''; ?>" tabindex="1" autofocus>
+                                    <?php if (isset(session()->getFlashdata('validation')['email'])): ?>
                                         <div class="invalid-feedback">
-                                            <?= $validation->getError('email') ?>
+                                            <?= session()->getFlashdata('validation')['email'] ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -68,12 +68,12 @@
                                         </div>
                                     </div>
                                     <input id="password" type="password"
-                                           class="form-control <?= (isset($validation) && $validation->hasError('password')) ? 'is-invalid' : ''; ?>"
+                                           class="form-control <?= isset(session()->getFlashdata('validation')['password']) ? 'is-invalid' : ''; ?>"
                                            name="password"
                                            tabindex="2">
-                                    <?php if (isset($validation) && $validation->hasError('password')): ?>
+                                    <?php if (isset(session()->getFlashdata('validation')['password'])): ?>
                                         <div class="invalid-feedback">
-                                            <?= $validation->getError('password') ?>
+                                            <?= session()->getFlashdata('validation')['password'] ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>

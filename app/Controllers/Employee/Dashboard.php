@@ -69,14 +69,7 @@ class Dashboard extends BaseController
                 return view('employee/login');
             }
 
-            $data = [
-                'employee' => [
-                    'email' => $this->request->getPost('email'),
-                ],
-                'validation' => $this->validator,
-            ];
-
-            return view('employee/login', $data);
+            return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
         }
 
         if ($this->session->has('ims_logged_in')) {
