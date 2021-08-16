@@ -44,6 +44,7 @@ $routes->match(['get', 'post'], 'employee/login', 'Employee\Dashboard::login');
 $routes->get('employee/', 'Employee\Dashboard::index');
 $routes->get('employee/dashboard', 'Employee\Dashboard::index');
 $routes->get('employee/index', 'Employee\Dashboard::index');
+$routes->get('employee/employee/show/(:num)', 'Employee\Employee::show/$1');
 $routes->get('employee/logout', 'Employee\Dashboard::logout');
 
 $routes->match(['get', 'post'],'admin/login', 'Admin\Dashboard::login');
