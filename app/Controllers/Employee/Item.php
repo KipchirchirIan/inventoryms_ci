@@ -8,7 +8,6 @@ use App\Models\ItemModel;
 use App\Models\UomModel;
 use Casbin\Enforcer;
 use Casbin\Exceptions\CasbinException;
-use Doctrine\Inflector\InflectorFactory;
 
 class Item extends BaseController
 {
@@ -18,6 +17,7 @@ class Item extends BaseController
         $this->uomModel = new UomModel();
         $this->itemsHistoryModel = new ItemHistoryModel();
         $this->session = \Config\Services::session();
+        $this->validation = \Config\Services::validation();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
@@ -48,6 +48,49 @@ class Item extends BaseController
         }
 
         return view('employee/item/index', $data);
+    }
+
+    public function show($id)
+    {
+        $data = array();
+
+        // Check if user is logged in
+        if (!$this->session->has('ims_logged_in')) {
+            return redirect('employee/login');
+        }
+
+        // Validate $id - required, natural number except 0
+        if (!$this->validation->check($id, 'required|is_natural_no_zero')) {
+            $this->session->setFlashdata('error_message', 'Missing/Invalid ID');
+            return redirect()->back();
+        }
+
+        $item = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
+            ->join('tbl_item_categories', 'tbl_items.category_id = tbl_item_categories.category_id')
+            ->find($id);
+
+        if (!$item) {
+            $this->session->setFlashdata('error_message', 'Record does not exist!');
+            return redirect()->back();
+        }
+
+        try {
+            $sub = $this->session->get('ims_email');
+            $obj = 'items';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['item'] = $item;
+
+                return view('employee/item/show', $data);
+            }
+
+            throw new CasbinException('Request Denied!', 403);
+        } catch (CasbinException $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect()->back();
     }
 
     public function checkInOut()
@@ -157,7 +200,7 @@ class Item extends BaseController
                         return redirect()->back();
                     }
                     throw new \Exception('Request Denied!', 403);
-                } catch (CasbinException|\Exception $e) {
+                } catch (CasbinException | \Exception $e) {
                     echo $e->getMessage();
                 }
             }
@@ -278,7 +321,7 @@ class Item extends BaseController
                         return redirect()->back();
                     }
                     throw new \Exception('Request Denied!', 403);
-                } catch (CasbinException|\Exception $e) {
+                } catch (CasbinException | \Exception $e) {
                     echo $e->getMessage();
                 }
             }
