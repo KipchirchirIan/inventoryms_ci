@@ -20,8 +20,6 @@ class Item extends BaseController
         $this->uomModel = new UomModel();
         $this->categoryModel = new CategoryModel();
         $this->session = \Config\Services::session();
-        $this->inflector = InflectorFactory::create()->build();
-        $this->uri = \Config\Services::uri();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
@@ -44,8 +42,6 @@ class Item extends BaseController
             if ($this->e->enforce($sub, $obj, $action) === true) {
                 $data['items'] = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
                                                ->findAll();
-                $data['inflector'] = $this->inflector;
-                $data['uri'] = $this->uri;
             } else {
                 throw new \Exception('Request Denied!', 403);
             }
@@ -156,8 +152,6 @@ class Item extends BaseController
             if ($this->e->enforce($sub, $obj, $action) === true) {
                 $data['items'] = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
                     ->findAll();
-                $data['inflector'] = $this->inflector;
-                $data['uri'] = $this->uri;
             } else {
                 throw new \Exception('Request Denied!', 403);
             }
@@ -188,8 +182,6 @@ class Item extends BaseController
 
         $data = [
             'item' => $item,
-            'inflector' => $this->inflector,
-            'formattedUoM' => $this->formattedUoM($item),
         ];
 
         return view('admin/item/checkIn', $data);
@@ -311,8 +303,6 @@ class Item extends BaseController
 
         $data = [
             'item' => $item,
-            'inflector' => $this->inflector,
-            'formattedUoM' => $this->formattedUoM($item),
         ];
 
         return view('admin/item/checkOut', $data);
@@ -405,18 +395,5 @@ class Item extends BaseController
         }
 
         return view('admin/item/history', $data);
-    }
-
-    public function formattedUoM($data = array())
-    {
-        if ($data['quantity'] > 1) {
-            if (strtolower($data['uom_full']) === 'none') {
-                return ucwords($this->inflector->pluralize($data['item_name']));
-            }
-
-            return ucwords($this->inflector->pluralize($data['uom_full']));
-        }
-
-        return ucwords($data['uom_full']);
     }
 }
