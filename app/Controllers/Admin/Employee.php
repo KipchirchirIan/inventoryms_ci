@@ -13,6 +13,7 @@ class Employee extends BaseController
     {
         $this->employeeModel = new EmployeeModel();
         $this->session = \Config\Services::session();
+        $this->validation = \Config\Services::validation();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
@@ -47,6 +48,59 @@ class Employee extends BaseController
         }
 
         return view('admin/employee/index', $data);
+    }
+
+    /**
+     * Show a single employee
+     *
+     * @param $id
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws CasbinException
+     */
+    public function show($id)
+    {
+        $data = array();
+        // Check if logged in
+        if (! $this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        // Validate $id - required & natural number except 0
+        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+            $this->session->setFlashdata('error_message', 'Invalid/Missing ID');
+
+            return redirect()->back();
+        }
+
+        // Look up for employee record in database
+        $employee = $this->employeeModel->find($id);
+
+        // Check if record exists
+        if (! $employee) {
+            $this->session->setFlashdata('error_message', 'Record does not exist');
+            return redirect()->back();
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'employees';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['employee'] = $employee;
+
+                return view("admin/employee/show", $data);
+            }
+
+            throw new CasbinException('Request Denied!', 403);
+        } catch (CasbinException $e) {
+            // Todo: Should log the exception and show a forbidden action page
+//            log_message('critical','Request Denied!', ['exception' => $e]);
+            throw new CasbinException('Request Denied!', 403);
+        }
+
+//        return  redirect()->back();
     }
 
     public function create()
