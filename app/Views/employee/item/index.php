@@ -52,17 +52,7 @@
                                             <td><?= $item['item_id'] ?></td>
                                             <td><?= $item['item_name'] ?></td>
                                             <td><?= $item['item_description'] ?></td>
-                                            <td><?= $item['quantity'] ?>&nbsp;<?php
-                                                if ($item['quantity'] > 1) {
-                                                    if (strtolower($item['uom_full']) === 'none') {
-                                                        echo ucwords($inflector->pluralize($item['item_name']));
-                                                    } else {
-                                                        echo ucwords($inflector->pluralize($item['uom_full']));
-                                                    }
-                                                } else {
-                                                    echo ucwords($item['uom_full']);
-                                                }
-                                                ?>
+                                            <td><?= $item['quantity'] ?>&nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('employee/item/show/' . $item['item_id']) ?>"

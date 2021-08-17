@@ -4,12 +4,9 @@ namespace App\Controllers\Superadmin;
 
 use App\Controllers\BaseController;
 use App\Models\SuperAdminModel;
-use Casbin\Enforcer;
 
 class Dashboard extends BaseController
 {
-    private $e;
-
     public function __construct()
     {
         $this->superAdminModel = new SuperAdminModel();

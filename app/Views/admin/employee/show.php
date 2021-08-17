@@ -1,4 +1,4 @@
-<?php $this->extend('layouts/app'); ?>
+<?php $this->extend('admin/layouts/app'); ?>
 
 <?php $this->section('content'); ?>
 
@@ -41,12 +41,19 @@
                             <div class="d-inline ml-2">
                                 <p class="m-0">
                                     <strong>Name:</strong>&nbsp;<?= $employee['first_name'] . ' ' . $employee['last_name'] ?>
-                                    <?= ($employee['email'] === session()->get('ims_email')) ? '<strong>(You)</strong>' : '' ?>
                                 </p>
                                 <p class="m-0"><strong>Position:</strong>&nbsp;
                                     <?= !empty($employee['position']) ? $employee['position'] : '&#8211;' ?>
                                 </p>
                             </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <a class="btn btn-primary mr-2" role="button" aria-pressed="true" href="<?= base_url('admin/employee/edit/' . $employee['emp_id']) ?>">Edit</a>
+                            <form onsubmit="return confirm('Are you sure?');" class="d-inline" id="frmDeleteEmployee" action="<?= base_url("admin/employee/delete/{$employee['emp_id']}") ?>"
+                                  method="post">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -57,3 +64,4 @@
 
 
 <?php $this->endSection(); ?>
+

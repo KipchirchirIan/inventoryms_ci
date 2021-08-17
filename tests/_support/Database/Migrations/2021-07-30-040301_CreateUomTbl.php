@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Database\Migrations;
+namespace Tests\Support\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateItemcategoriesTbl extends Migration
+class CreateUomTbl extends Migration
 {
 	public function up()
 	{
-	    $this->forge->addField([
-	        'category_id' => [
-	            'type' => 'INT',
+		$this->forge->addField([
+		    'uom_id' => [
+		        'type' => 'INT',
                 'constraint' => 5,
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'category_name' => [
+            'uom_short' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
             ],
-            'category_description' => [
+            'uom_full' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+            ],
+            'uom_description' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
@@ -31,13 +35,13 @@ class CreateItemcategoriesTbl extends Migration
             'created_at timestamp default current_timestamp',
             'updated_at timestamp default current_timestamp on update current_timestamp',
         ]);
-	    $this->forge->addPrimaryKey('category_id');
-	    $this->forge->addForeignKey('added_by', 'tbl_admins', 'admin_id');
-	    $this->forge->createTable('tbl_item_categories');
+		$this->forge->addPrimaryKey('uom_id');
+		$this->forge->addForeignKey('added_by', 'tbl_admins', 'admin_id');
+		$this->forge->createTable('tbl_uoms');
 	}
 
 	public function down()
 	{
-		$this->forge->dropTable('tbl_item_categories');
+		$this->forge->dropTable('tbl_uoms');
 	}
 }

@@ -49,6 +49,36 @@ class Employee extends BaseController
 
     public function show($id)
     {
+        $data = array();
+        // Check if logged in
+        if (!$this->session->has('ims_logged_in')) {
+            return redirect()->to('employee/login');
+        }
 
+        // Validate $id - required & natural number except 0
+//        if (! $this->validator->check($id, 'required|is_natural_no_zero')) {
+//            $this->session->setFlashdata('error_message', 'Invalid/Missing ID');
+//
+//            return redirect()->back();
+//        }
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->session->setFlashdata('error_message', 'Invalid/Missing ID');
+
+            return redirect()->back();
+        }
+
+        // Look up for employee record in database
+        $employee = $this->employeeModel->find($id);
+
+        // Check if record exists
+        if (! $employee) {
+            $this->session->setFlashdata('error_message', 'Record does not exist');
+            return redirect()->back();
+        }
+
+        $data['employee'] = $employee;
+
+        return view("employee/employee/show", $data);
     }
 }
