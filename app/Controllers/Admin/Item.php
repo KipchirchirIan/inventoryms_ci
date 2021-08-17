@@ -9,7 +9,6 @@ use App\Models\ItemModel;
 use App\Models\UomModel;
 use Casbin\Enforcer;
 use Casbin\Exceptions\CasbinException;
-use Doctrine\Inflector\InflectorFactory;
 
 class Item extends BaseController
 {
