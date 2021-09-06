@@ -9,9 +9,13 @@ use App\Models\ItemModel;
 use App\Models\UomModel;
 use Casbin\Enforcer;
 use Casbin\Exceptions\CasbinException;
+use Config\Services;
 
 class Item extends BaseController
 {
+    /**
+     * @throws CasbinException
+     */
     public function __construct()
     {
         $this->itemModel = new ItemModel();
@@ -19,6 +23,7 @@ class Item extends BaseController
         $this->uomModel = new UomModel();
         $this->categoryModel = new CategoryModel();
         $this->session = \Config\Services::session();
+        $this->validation = \Config\Services::validation();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
 
         helper('html');
@@ -131,9 +136,111 @@ class Item extends BaseController
         return redirect()->back();
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $data = array();
+        $data['categories'] = $this->categoryModel->findAll();
+        $data['uoms'] = $this->uomModel->findAll();
 
+        if (! $this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+            $this->session->setFlashdata('error_message', 'Invalid/Missing ID!');
+            return redirect()->back();
+        }
+
+        $item = $this->itemModel->find($id);
+
+        if (! $item) {
+            $this->session->setFlashdata('error_message', 'Record does not exist!');
+            return redirect()->back();
+        }
+
+        $sub = $this->session->get('imsa_email');
+        $obj = 'items';
+        $action = 'read';
+
+        try {
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['item'] = $item;
+            } else {
+                throw new \Exception('Request Denied!', 403);
+            }
+        } catch (CasbinException $e) {
+            echo $e->getMessage();
+        }
+
+        return view('admin/item/edit', $data);
+    }
+
+    public function update($id)
+    {
+        if (! $this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+            $this->session->setFlashdata('error_message', 'Invalid/Missing ID!');
+            return redirect()->back();
+        }
+
+        $item = $this->itemModel->find($id);
+
+        if (! $item) {
+            $this->session->setFlashdata('error_message', 'Record does not exist!');
+            return redirect()->back();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $validated = $this->validate([
+                'item_name' => ['label' => 'Item name', 'rules' => 'required'],
+                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
+                'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
+            ]);
+
+            if (! $validated) {
+                return redirect()->back()->with('validation', $this->validator->getErrors())->withInput();
+            }
+
+            $name = $this->request->getPost('item_name');
+            $description = $this->request->getPost('item_description');
+            $category = $this->request->getPost('category');
+            $uom = $this->request->getPost('uom');
+            $note = $this->request->getPost('note');
+
+            $new_data = [
+                'item_name' => $name,
+                'item_description' => $description,
+                'category_id' => $category,
+                'uom' => $uom,
+                'note' => $note,
+                'last_modified_by' => $this->session->get('imsa_email'),
+            ];
+
+            try {
+                $sub = $this->session->get('imsa_email');
+                $obj = 'items';
+                $action = 'write';
+
+                if ($this->e->enforce($sub, $obj, $action) === true) {
+                    $result = $this->itemModel->update($id, $new_data);
+
+                    if ($result) {
+                        return redirect()->back()->with('success_message', 'Record updated successfully!');
+                    }
+
+                    return redirect()->back()->with('error_message', 'Failed to update record.');
+                }
+
+                throw new \Exception('Request Denied!', 403);
+            } catch (CasbinException $e) {
+                echo $e->getMessage();
+            }
+        }
+
+        return redirect()->back();
     }
 
     public function checkInOut()
