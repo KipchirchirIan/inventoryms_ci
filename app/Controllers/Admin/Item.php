@@ -56,6 +56,47 @@ class Item extends BaseController
         return view('admin/item/index', $data);
     }
 
+    public function show($id)
+    {
+        $data = array();
+
+        // Check if user is logged in
+        if (! $this->session->has('imsa_logged_in')) {
+            return redirect('admin/login');
+        }
+
+        // Validate $id - required, natural number except 0
+        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+            return redirect()->back()->with('error_message', 'Missing/Invalid ID');
+        }
+
+        $item = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
+            ->join('tbl_item_categories', 'tbl_items.category_id = tbl_item_categories.category_id')
+            ->find($id);
+
+        if (! $item) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'items';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['item'] = $item;
+
+                return view('admin/item/show', $data);
+            }
+
+            throw new \Exception('Request Denied!', 403);
+        } catch (CasbinException $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect()->back();
+    }
+
     public function create()
     {
         if (!$this->session->has('imsa_logged_in')) {
