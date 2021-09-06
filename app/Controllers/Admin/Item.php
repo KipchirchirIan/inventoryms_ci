@@ -284,6 +284,45 @@ class Item extends BaseController
         return redirect()->back();
     }
 
+    public function delete($id)
+    {
+        if (! $this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+            return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
+        }
+
+        if (! $this->itemModel->find($id)) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $sub = $this->session->get('imsa_email');
+                $obj = 'items';
+                $action = 'write';
+
+                if ($this->e->enforce($sub, $obj, $action) === true) {
+                    $result = $this->itemModel->delete($id);
+
+                    if ($result) {
+                        return redirect()->back()->with('success_message', 'Record deleted successfully!');
+                    }
+
+                    return redirect()->back()->with('error_message', 'Failed to delete record.');
+                }
+
+                throw new \Exception('Request Denied!', 403);
+            } catch (CasbinException $e) {
+                echo $e->getMessage();
+            }
+        }
+
+        return redirect()->back();
+    }
+
     public function checkInOut()
     {
         $data = array();
