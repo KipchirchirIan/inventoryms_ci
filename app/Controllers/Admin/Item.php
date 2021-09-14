@@ -216,6 +216,11 @@ class Item extends BaseController
         return view('admin/item/edit', $data);
     }
 
+    /**
+     * @param $id int
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function update($id)
     {
         if (! $this->session->has('imsa_logged_in')) {
@@ -235,14 +240,14 @@ class Item extends BaseController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $validated = $this->validate([
+            $rules = [
                 'item_name' => ['label' => 'Item name', 'rules' => 'required'],
-                'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
-                'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
-            ]);
+                'uom'       => ['label' => 'Unit of measurement', 'rules' => 'required'],
+                'category'  => ['label' => 'Category', 'rules' => 'required|is_natural']
+            ];
 
-            if (! $validated) {
-                return redirect()->back()->with('validation', $this->validator->getErrors())->withInput();
+            if (! $this->validate($rules)) {
+                return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
             }
 
             $name = $this->request->getPost('item_name');
