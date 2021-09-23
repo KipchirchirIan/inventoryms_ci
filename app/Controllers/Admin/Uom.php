@@ -51,6 +51,46 @@ class Uom extends BaseController
         return view('admin/uom/index', $data);
     }
 
+    public function show($id = 0)
+    {
+        $data = array();
+        if (!$this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        $filter_options = array(
+            'options' => array( 'min_range' => 0)
+        );
+
+        if (! filter_var($id, FILTER_VALIDATE_INT, $filter_options)) {
+            return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
+        }
+
+        $uom = $this->uomModel->find($id);
+
+        if (!$uom) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'uoms';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['uom'] = $uom;
+
+                return view('admin/uom/show', $data);
+            }
+
+            throw new \Exception('Request Denied!', 403);
+        } catch (CasbinException|\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect()->back();
+    }
+
     public function create()
     {
         if (!$this->session->has('imsa_logged_in')) {
