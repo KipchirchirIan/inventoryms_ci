@@ -298,7 +298,11 @@ class Item extends BaseController
             return redirect()->to('admin/login');
         }
 
-        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+        $filter_options = array(
+            'options' => array( 'min_range' => 0)
+        );
+
+        if (! filter_var($id, FILTER_VALIDATE_INT, $filter_options)) {
             return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
         }
 
