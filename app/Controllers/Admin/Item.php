@@ -45,7 +45,7 @@ class Item extends BaseController
 
             if ($this->e->enforce($sub, $obj, $action) === true) {
                 $data['items'] = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
-                                               ->findAll();
+                    ->findAll();
             } else {
                 throw new \Exception('Request Denied!', 403);
             }
@@ -61,12 +61,12 @@ class Item extends BaseController
         $data = array();
 
         // Check if user is logged in
-        if (! $this->session->has('imsa_logged_in')) {
+        if (!$this->session->has('imsa_logged_in')) {
             return redirect('admin/login');
         }
 
         // Validate $id - required, natural number except 0
-        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
+        if (!$this->validation->check($id, 'required|is_natural_no_zero')) {
             return redirect()->back()->with('error_message', 'Missing/Invalid ID');
         }
 
@@ -74,7 +74,7 @@ class Item extends BaseController
             ->join('tbl_item_categories', 'tbl_items.category_id = tbl_item_categories.category_id')
             ->find($id);
 
-        if (! $item) {
+        if (!$item) {
             return redirect()->back()->with('error_message', 'Record does not exist!');
         }
 
@@ -183,18 +183,21 @@ class Item extends BaseController
         $data['categories'] = $this->categoryModel->findAll();
         $data['uoms'] = $this->uomModel->findAll();
 
-        if (! $this->session->has('imsa_logged_in')) {
+        if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
         }
 
-        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
-            $this->session->setFlashdata('error_message', 'Invalid/Missing ID!');
-            return redirect()->back();
+        $filter_options = array(
+            'options' => array( 'min_range' => 0)
+        );
+
+        if (! filter_var($id, FILTER_VALIDATE_INT, $filter_options)) {
+            return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
         }
 
         $item = $this->itemModel->find($id);
 
-        if (! $item) {
+        if (!$item) {
             $this->session->setFlashdata('error_message', 'Record does not exist!');
             return redirect()->back();
         }
@@ -213,7 +216,7 @@ class Item extends BaseController
             echo $e->getMessage();
         }
 
-        return view('admin/item/edit', $data);
+        return view("admin/item/edit", $data);
     }
 
     /**
@@ -223,33 +226,33 @@ class Item extends BaseController
      */
     public function update($id)
     {
-        if (! $this->session->has('imsa_logged_in')) {
+        if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
         }
 
-        if (! $this->validation->check($id, 'required|is_natural_no_zero')) {
-            $this->session->setFlashdata('error_message', 'Invalid/Missing ID!');
-            return redirect()->back();
+        $filter_options = array(
+            'options' => array( 'min_range' => 0)
+        );
+
+        if (! filter_var($id, FILTER_VALIDATE_INT, $filter_options)) {
+            return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
         }
 
-        $item = $this->itemModel->find($id);
+        if (!$this->itemModel->find($id)) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
 
-        if (! $item) {
-            $this->session->setFlashdata('error_message', 'Record does not exist!');
-            return redirect()->back();
+        $rules = [
+            'item_name' => ['label' => 'Item name', 'rules' => 'required'],
+            'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
+            'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $rules = [
-                'item_name' => ['label' => 'Item name', 'rules' => 'required'],
-                'uom'       => ['label' => 'Unit of measurement', 'rules' => 'required'],
-                'category'  => ['label' => 'Category', 'rules' => 'required|is_natural']
-            ];
-
-            if (! $this->validate($rules)) {
-                return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
-            }
-
             $name = $this->request->getPost('item_name');
             $description = $this->request->getPost('item_description');
             $category = $this->request->getPost('category');
@@ -286,12 +289,12 @@ class Item extends BaseController
             }
         }
 
-        return redirect()->back();
+        return redirect()->to('admin/item/index');
     }
 
     public function delete($id)
     {
-        if (! $this->session->has('imsa_logged_in')) {
+        if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
         }
 
@@ -299,7 +302,7 @@ class Item extends BaseController
             return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
         }
 
-        if (! $this->itemModel->find($id)) {
+        if (!$this->itemModel->find($id)) {
             return redirect()->back()->with('error_message', 'Record does not exist!');
         }
 
@@ -434,7 +437,7 @@ class Item extends BaseController
                         return redirect()->back();
                     }
                     throw new \Exception('Request Denied!', 403);
-                } catch (CasbinException|\Exception $e) {
+                } catch (CasbinException | \Exception $e) {
                     echo $e->getMessage();
                 }
             }
@@ -555,7 +558,7 @@ class Item extends BaseController
                         return redirect()->back();
                     }
                     throw new \Exception('Request Denied!', 403);
-                } catch (CasbinException|\Exception $e) {
+                } catch (CasbinException | \Exception $e) {
                     echo $e->getMessage();
                 }
             }
@@ -581,7 +584,7 @@ class Item extends BaseController
             } else {
                 throw new \Exception('Request Denied!', 403);
             }
-        } catch (CasbinException|\Exception $e) {
+        } catch (CasbinException | \Exception $e) {
             echo $e->getMessage();
         }
 
