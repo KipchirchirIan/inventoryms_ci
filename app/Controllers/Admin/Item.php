@@ -407,7 +407,7 @@ class Item extends BaseController
             $checkin_qty = $this->request->getPost('checkin_qty');
 
             $validated = $this->validate([
-                'checkin_qty' => ['label' => 'Check in quantity', 'rules' => 'required|is_natural'],
+                'checkin_qty' => ['label' => 'Check in quantity', 'rules' => 'required|is_natural_no_zero'],
             ]);
 
             $insert_data = [
@@ -528,7 +528,7 @@ class Item extends BaseController
             $checkout_qty = $this->request->getPost('checkout_qty');
 
             $validated = $this->validate([
-                'checkout_qty' => ['label' => 'Check out quantity', 'rules' => 'required|is_natural'],
+                'checkout_qty' => ['label' => 'Check out quantity', 'rules' => 'required|is_natural_no_zero'],
             ]);
 
             $insert_data = [
