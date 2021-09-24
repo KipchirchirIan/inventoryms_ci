@@ -285,6 +285,12 @@ class Employee extends BaseController
             return redirect()->back();
         }
 
+        $employee = $this->employeeModel->find($id);
+
+        if (!$employee) {
+            redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
         helper('html');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -296,8 +302,10 @@ class Employee extends BaseController
                     $result = $this->employeeModel->delete($id);
 
                     if ($result) {
-                        $this->session->setFlashdata('success_message', 'Record deleted successfully');
+                        $this->e->deleteRoleForUser($employee['email'], 'user_group_emp');
+                        $this->e->savePolicy();
 
+                        $this->session->setFlashdata('success_message', 'Record deleted successfully');
                         return redirect()->back();
                     }
 
