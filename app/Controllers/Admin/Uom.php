@@ -181,10 +181,14 @@ class Uom extends BaseController
             return redirect()->to('admin/login');
         }
 
-        // Todo: Perhaps we need to check here if the record with $id exists
+        $uom = $this->uomModel->find($id);
+
+        if (!$uom) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
 
         $data = [
-            'uom' => $this->uomModel->find($id),
+            'uom' => $uom,
         ];
 
         return view('admin/uom/edit', $data);

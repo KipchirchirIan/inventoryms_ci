@@ -192,10 +192,14 @@ class Employee extends BaseController
             return redirect()->to('admin/login');
         }
 
-        // Todo: Perhaps we need to check here if the record with $id exists
+        $employee = $this->employeeModel->find($id);
+
+        if (!$employee) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
 
         $data = [
-            'employee' => $this->employeeModel->find($id),
+            'employee' => $employee,
         ];
 
         return view("admin/employee/edit", $data);
@@ -210,6 +214,10 @@ class Employee extends BaseController
         if (empty($id) || !is_numeric($id)) {
             $this->session->setFlashdata('error_message', 'Missing/Invalid employee ID');
             return redirect()->to("admin/employee/edit/{$id}");
+        }
+
+        if (!$this->employeeModel->find($id)) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
         }
 
         helper('html');
