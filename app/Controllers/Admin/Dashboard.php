@@ -131,7 +131,7 @@ class Dashboard extends BaseController
         $mpdf->SetDisplayMode('fullpage');
 
         $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        $mpdf->Output('RDC-itemslist.pdf', \Mpdf\Output\Destination::DOWNLOAD);
     }
 
     public function itemContent()
