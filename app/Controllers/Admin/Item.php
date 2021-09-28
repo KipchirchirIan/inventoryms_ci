@@ -168,7 +168,7 @@ class Item extends BaseController
 
                     throw new \Exception('Request Denied!', 403);
                 } catch (CasbinException $e) {
-                    echo $e->getMessage();
+                    log_message('error', $e->getMessage());
                 }
             }
 
