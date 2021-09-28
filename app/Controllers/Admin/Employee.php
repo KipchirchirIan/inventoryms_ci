@@ -192,10 +192,14 @@ class Employee extends BaseController
             return redirect()->to('admin/login');
         }
 
-        // Todo: Perhaps we need to check here if the record with $id exists
+        $employee = $this->employeeModel->find($id);
+
+        if (!$employee) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
 
         $data = [
-            'employee' => $this->employeeModel->find($id),
+            'employee' => $employee,
         ];
 
         return view("admin/employee/edit", $data);
@@ -210,6 +214,10 @@ class Employee extends BaseController
         if (empty($id) || !is_numeric($id)) {
             $this->session->setFlashdata('error_message', 'Missing/Invalid employee ID');
             return redirect()->to("admin/employee/edit/{$id}");
+        }
+
+        if (!$this->employeeModel->find($id)) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
         }
 
         helper('html');
@@ -285,6 +293,12 @@ class Employee extends BaseController
             return redirect()->back();
         }
 
+        $employee = $this->employeeModel->find($id);
+
+        if (!$employee) {
+            redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
         helper('html');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -296,8 +310,10 @@ class Employee extends BaseController
                     $result = $this->employeeModel->delete($id);
 
                     if ($result) {
-                        $this->session->setFlashdata('success_message', 'Record deleted successfully');
+                        $this->e->deleteRoleForUser($employee['email'], 'user_group_emp');
+                        $this->e->savePolicy();
 
+                        $this->session->setFlashdata('success_message', 'Record deleted successfully');
                         return redirect()->back();
                     }
 

@@ -57,6 +57,9 @@ $routes->get('admin/superadmin/index', 'Admin\Dashboard::index');
 $routes->match(['get', 'post'], 'admin/employee/create', 'Admin\Employee::create');
 $routes->get('admin/employee/edit/(:num)', 'Admin\Employee::edit/$1');
 $routes->get('admin/employee/update/(:num)', 'Admin\Employee::update/$1');
+$routes->get('admin/item/edit/(:num)', 'Admin\Item::edit/$1');
+$routes->post('admin/item/update/(:num)', 'Admin\Item::update/$1');
+$routes->get('admin/dashboard/print/items', 'Admin\Dashboard::printItemsList', ['as' => 'print_itemsList']);
 $routes->get('admin/logout', 'Admin\Dashboard::logout');
 
 /*

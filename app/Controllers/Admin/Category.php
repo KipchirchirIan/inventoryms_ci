@@ -189,6 +189,46 @@ class Category extends BaseController
         return redirect()->back();
     }
 
+    public function show($id = 0)
+    {
+        $data = array();
+        if (!$this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        $filter_options = array(
+            'options' => array( 'min_range' => 0)
+        );
+
+        if (! filter_var($id, FILTER_VALIDATE_INT, $filter_options)) {
+            return redirect()->back()->with('error_message', 'Invalid/Missing ID!');
+        }
+
+        $category = $this->categoryModel->find($id);
+
+        if (! $category) {
+            return redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'item_categories';
+            $action = 'read';
+
+            if ($this->e->enforce($sub, $obj, $action) === true) {
+                $data['category'] = $category;
+
+                return view('admin/category/show', $data);
+            }
+
+            throw new \Exception('Request Denied!', 403);
+        } catch (CasbinException|\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect()->back();
+    }
+
     public function delete($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {

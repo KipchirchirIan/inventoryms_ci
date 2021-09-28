@@ -39,7 +39,7 @@
                                     <label for="item_name">Item Name</label>
                                     <input type="text" name="item_name"
                                            class="form-control <?= isset(session()->getFlashdata('validation')['item_name']) ? 'is-invalid' : '' ?>"
-                                           id="item_name" value="<?= $item['item_name'] ?? old('item_name') ?? '' ?>"
+                                           id="item_name" value="<?=  old('item_name') ?? $item['item_name'] ?>"
                                            tabindex="1">
                                     <div class="invalid-feedback">
                                         <?= session()->getFlashdata('validation')['item_name'] ?? '' ?>
@@ -50,7 +50,7 @@
                                     <textarea name="item_description"
                                               class="form-control <?= isset(session()->getFlashdata('validation')['item_description']) ? 'is-invalid' : '' ?>"
                                               id="item_description" cols="30"
-                                              rows="10"><?= $item['item_description'] ?? old('item_description') ?? '' ?></textarea>
+                                              rows="10"><?= old('item_description') ?? $item['item_description'] ?></textarea>
                                     <div class="invalid-feedback">
                                         <?= session()->getFlashdata('validation')['item_description'] ?? '' ?>
                                     </div>
@@ -89,7 +89,7 @@
                                     <textarea name="note"
                                               class="form-control <?= isset(session()->getFlashdata('validation')['note']) ? 'is-invalid' : '' ?>"
                                               id="note" cols="30"
-                                              rows="10"><?= $item['note'] ?? old('note') ?? '' ?></textarea>
+                                              rows="10"><?= old('note') ?? $item['note'] ?? '' ?></textarea>
                                 </div>
 
                                 <div class="form-group">
