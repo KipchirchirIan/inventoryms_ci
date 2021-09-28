@@ -91,6 +91,9 @@
                                         Login
                                     </button>
                                 </div>
+                                <div class="text-center">
+                                    <a href="<?=  base_url('employee/') ?>">Login as Employee</a>
+                                </div>
                             </form>
                         </div>
                     </div>
