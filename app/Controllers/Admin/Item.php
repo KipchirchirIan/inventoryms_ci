@@ -167,7 +167,8 @@ class Item extends BaseController
                     }
 
                     throw new \Exception('Request Denied!', 403);
-                } catch (CasbinException $e) {
+                } catch (\Exception $e) {
+                    log_message('info', "Request from: {$sub}");
                     log_message('error', $e->getMessage());
                 }
             }
