@@ -25,6 +25,7 @@ class Item extends BaseController
         $this->session = \Config\Services::session();
         $this->validation = \Config\Services::validation();
         $this->e = new Enforcer(APPPATH . 'model.conf', WRITEPATH . 'casbin/policy.csv');
+        $this->e->loadPolicy();
 
         helper('html');
         helper('inflector');
