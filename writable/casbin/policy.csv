@@ -14,11 +14,11 @@ p, user_group_admin, items_history, write
 g, janedoe@gmail.com, user_group_admin
 g, johndoe@mail.com, user_group_admin
 g, test@mail.com, user_group_admin
-g, accounts@rescudedada.org, user_group_admin
+g, accounts@rescuedada.org, user_group_admin
 g, mgilliam@mailinator.com, user_group_emp
 g, hequsygo@mailinator.com, user_group_emp
 g, test@employee.com, user_group_emp
-g, reception@rescudedada.org, user_group_emp
+g, reception@rescuedada.org, user_group_emp
 g, admin@mail.com, user_group_admin
 g2, employees, data_group
 g2, item_categories, data_group
