@@ -6,3 +6,53 @@
  */
 
 /*# sourceMappingURL=custom.css.map */
+
+/* 3.1 Misc */
+a {
+    color: #ec2c7c;
+}
+
+.bg-primary {
+    background-color: #90288f !important;
+}
+
+.bg-secondary {
+    background-color: #ec2c7c !important;
+}
+
+.text-primary, .text-primary-all *, .text-primary-all *:before, .text-primary-all *:after {
+    color: #ec2c7c !important;
+}
+
+/* 3.18 Navbar */
+.navbar-bg {
+    background-color: #90288f;
+}
+
+/* 3.12 Button */
+.btn-primary, .btn-primary.disabled {
+    background-color: #ec2c7c;
+    border-color: #ec2c7c;
+}
+
+/* 4.2 Section */
+.section .section-header .section-header-back .btn:hover {
+    background-color: #90288f;
+}
+
+.section .section-title:before {
+    background-color: #90288f;
+}
+
+/* 4.3 Page */
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+    background-color: #ec2c7c;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > a:hover {
+    background-color: #ec2c7c !important;
+}
+
+.main-sidebar .sidebar-menu li.active a {
+    color: #ec2c7c;
+}

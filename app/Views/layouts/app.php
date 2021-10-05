@@ -24,6 +24,9 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/components.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
 </head>
 <body>
     <div id="app">
