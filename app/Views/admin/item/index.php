@@ -36,7 +36,8 @@
                                 </div>
                             <?php endif; ?>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-md">
+                                <table class="table table-bordered table-md" id="itemsTable">
+                                    <thead>
                                     <tr>
                                         <td>ID #</td>
                                         <td>Name</td>
@@ -44,12 +45,15 @@
                                         <td>Quantity</td>
                                         <td>Action</td>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <?php foreach ($items as $item) : ?>
                                         <tr>
                                             <td><?= $item['item_id'] ?></td>
                                             <td><?= $item['item_name'] ?></td>
                                             <td><?= $item['item_description'] ?></td>
-                                            <td><?= $item['quantity'] ?>&nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
+                                            <td><?= $item['quantity'] ?>
+                                                &nbsp;<?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?>
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('admin/item/show/' . $item['item_id']) ?>"
@@ -73,6 +77,7 @@
                                             <td colspan="8" class="text-center"><strong>0 records found</strong></td>
                                         </tr>
                                     <?php endif; ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
