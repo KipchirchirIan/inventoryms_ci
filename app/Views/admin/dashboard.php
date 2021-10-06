@@ -330,77 +330,30 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="d-inline">Tasks</h4>
+                        <h4 class="d-inline">Monthly Checkout List</h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-primary">View All</a>
+                            <div class="dropdown d-inline">
+                                <a class="font-weight-600 dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" id="orders-month">February</a>
+                                <ul class="dropdown-menu dropdown-menu-sm">
+                                    <li class="dropdown-title">Select Month</li>
+                                    <li><a href="#" class="dropdown-item">January</a></li>
+                                    <li><a href="#" class="dropdown-item">February</a></li>
+                                    <li><a href="#" class="dropdown-item">March</a></li>
+                                    <li><a href="#" class="dropdown-item">April</a></li>
+                                    <li><a href="#" class="dropdown-item">May</a></li>
+                                    <li><a href="#" class="dropdown-item">June</a></li>
+                                    <li><a href="#" class="dropdown-item">July</a></li>
+                                    <li><a href="#" class="dropdown-item active">August</a></li>
+                                    <li><a href="#" class="dropdown-item">September</a></li>
+                                    <li><a href="#" class="dropdown-item">October</a></li>
+                                    <li><a href="#" class="dropdown-item">November</a></li>
+                                    <li><a href="#" class="dropdown-item">December</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cbx-1">
-                                    <label class="custom-control-label" for="cbx-1"></label>
-                                </div>
-                                <img class="mr-3 rounded-circle" width="50"
-                                     src="<?php echo base_url(); ?>/assets/img/avatar/avatar-4.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="badge badge-pill badge-danger mb-1 float-right">Not Finished</div>
-                                    <h6 class="media-title"><a href="#">Redesign header</a></h6>
-                                    <div class="text-small text-muted">Alfa Zulkarnain
-                                        <div class="bullet"></div>
-                                        <span class="text-primary">Now</span></div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cbx-2" checked="">
-                                    <label class="custom-control-label" for="cbx-2"></label>
-                                </div>
-                                <img class="mr-3 rounded-circle" width="50"
-                                     src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="badge badge-pill badge-primary mb-1 float-right">Completed</div>
-                                    <h6 class="media-title"><a href="#">Add a new component</a></h6>
-                                    <div class="text-small text-muted">Serj Tankian
-                                        <div class="bullet"></div>
-                                        4 Min
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cbx-3">
-                                    <label class="custom-control-label" for="cbx-3"></label>
-                                </div>
-                                <img class="mr-3 rounded-circle" width="50"
-                                     src="<?php echo base_url(); ?>/assets/img/avatar/avatar-2.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="badge badge-pill badge-warning mb-1 float-right">Progress</div>
-                                    <h6 class="media-title"><a href="#">Fix modal window</a></h6>
-                                    <div class="text-small text-muted">Ujang Maman
-                                        <div class="bullet"></div>
-                                        8 Min
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cbx-4">
-                                    <label class="custom-control-label" for="cbx-4"></label>
-                                </div>
-                                <img class="mr-3 rounded-circle" width="50"
-                                     src="<?php echo base_url(); ?>/assets/img/avatar/avatar-1.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="badge badge-pill badge-danger mb-1 float-right">Not Finished</div>
-                                    <h6 class="media-title"><a href="#">Remove unwanted classes</a></h6>
-                                    <div class="text-small text-muted">Farhan A Mujib
-                                        <div class="bullet"></div>
-                                        21 Min
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <?= view_cell('\App\Libraries\Item::monthlyCheckoutList') ?>
                     </div>
                 </div>
             </div>

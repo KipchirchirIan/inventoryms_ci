@@ -35,6 +35,19 @@ a {
     border-color: #ec2c7c;
 }
 
+.btn-primary:focus, .btn-primary.disabled:focus {
+    background-color: #bd2363 !important;
+}
+
+.btn-primary:focus:active, .btn-primary.disabled:focus:active {
+    background-color: #bd2363 !important;
+}
+
+.btn-primary:active, .btn-primary:hover, .btn-primary.disabled:active, .btn-primary.disabled:hover {
+    background-color: #bd2363 !important;
+}
+
+
 /* 4.2 Section */
 .section .section-header .section-header-back .btn:hover {
     background-color: #90288f;

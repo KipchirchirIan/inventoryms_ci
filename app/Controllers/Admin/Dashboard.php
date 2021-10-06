@@ -209,4 +209,102 @@ class Dashboard extends BaseController
 
         return $html;
     }
+
+    public function printMonthlyCheckoutContent()
+    {
+        $html = $this->monthlyCheckoutContent();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'margin_left' => 20,
+            'margin_right' => 15,
+            'margin_top' => 48,
+            'margin_bottom' => 25,
+            'margin_header' => 10,
+            'margin_footer' => 10
+        ]);
+
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Rescue Dada Centre - Checkout Report(September)");
+        $mpdf->SetAuthor("Rescue Dada Centre");
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('RDC-checkout-sept.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+    }
+
+    public function monthlyCheckoutContent()
+    {
+        $i = 1;
+        $itemModel = model('ItemModel');
+        $items = $itemModel->getPrevMonthCheckoutData();
+
+        $html = '
+        <html lang="en">
+        <head>
+        <style>
+        body {font-family: sans-serif;
+            font-size: 10pt;
+        }
+        p {	margin: 0; }
+        table.items {
+            border: 0.1mm solid #000000;
+        }
+        td { vertical-align: top; }
+        .items td {
+            border-left: 0.1mm solid #000000;
+            border-right: 0.1mm solid #000000;
+        }
+        table thead th { background-color: #EEEEEE;
+            text-align: center;
+            border: 0.1mm solid #000000;
+            font-variant: small-caps;
+        }
+        .items td.qty {
+            text-align: center;
+        }
+        </style>
+        </head>
+        <body>
+        <!--mpdf
+        <htmlpageheader name="myheader">
+        <table width="100%"><tr>
+        <td width="50%" style="color:#91498F; "><span style="font-weight: bold; font-size: 14pt;">Rescue Dada Centre</span><br />Songot Way, off Park Road, Ngara,<br />Nairobi, Kenya<br /><span style="font-family:dejavusanscondensed;">&#9742;</span>+254 725 694 624</td>
+        </tr></table>
+        </htmlpageheader>
+        <htmlpagefooter name="myfooter">
+        <div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+        Page {PAGENO} of {nb}
+        </div>
+        </htmlpagefooter>
+        <sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+        <sethtmlpagefooter name="myfooter" value="on" />
+        mpdf-->
+        <div style="text-align: right">Date: ' . date("jS M Y") . '</div>
+        <br />';
+        $html .= '<table class="items" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">';
+        $html .= '<thead>';
+        $html .= '<tr>';
+        $html .= '<th width="15%">#</th>';
+        $html .= '<th width="45%">Item Name</th>';
+        $html .= '<th width="20%">Quantity Utilized</th>';
+        $html .= '</tr>';
+        $html .= '</thead>';
+        $html .= '<tbody>';
+
+        foreach ($items as $item) {
+            $html .= '<tr>';
+            $html .= '<td align="center">' . $i . '</td>';
+            $html .= '<td align="center">' . $item['item_name'] . '</td>';
+            $html .= '<td class="qty">' . $item['checkout_count'] . '&nbsp;' . uom_formatter($item['item_name'], $item['checkout_count'], $item['uom_full']) . '</td>';
+            $html .= '</tr>';
+            $i++;
+        }
+
+        $html .= '</tbody>';
+        $html .= '</table>';
+        $html .= '</body>';
+        $html .= '</html>';
+
+        return $html;
+    }
 }

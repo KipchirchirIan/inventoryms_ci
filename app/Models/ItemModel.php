@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Database\ConnectionInterface;
+use CodeIgniter\Database\Query;
 use CodeIgniter\Model;
 use CodeIgniter\Validation\ValidationInterface;
 
@@ -51,5 +52,19 @@ class ItemModel extends Model
         $this->builder->limit(1);
 
         return $this->builder->update();
+    }
+
+    public function getPrevMonthCheckoutData()
+    {
+        $sql = "select tbl_items_history.item_id, tbl_items.item_name, uom_full, sum(check_out) as checkout_count
+                from tbl_items_history
+                inner join tbl_items
+                on tbl_items_history.item_id = tbl_items.item_id
+                inner join tbl_uoms
+                on tbl_uoms.uom_id = tbl_items.uom
+                where month(tbl_items_history.created_at) = month(curdate()) - 1
+                group by item_id;";
+
+        return $this->db->query($sql)->getResultArray();
     }
 }

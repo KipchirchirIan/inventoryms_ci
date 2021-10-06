@@ -8,7 +8,7 @@
 "use strict";
 
 $(document).ready(function () {
-    $("#itemsTable").dataTable();
+    $(".table").dataTable();
 
     /* Disable submit buttons after form submit
        to avoid double submissions
