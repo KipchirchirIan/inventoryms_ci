@@ -134,7 +134,7 @@ class Item extends BaseController
                 'item_name' => $name,
                 'item_description' => $description,
                 'quantity' => $qty,
-                'uom' => $uom,
+                'uom_id' => $uom,
                 'category_id' => $category,
                 'note' => $note,
                 'added_by' => $this->session->get('imsa_email'),
@@ -265,7 +265,7 @@ class Item extends BaseController
                 'item_name' => $name,
                 'item_description' => $description,
                 'category_id' => $category,
-                'uom' => $uom,
+                'uom_id' => $uom,
                 'note' => $note,
                 'last_modified_by' => $this->session->get('imsa_email'),
             ];
