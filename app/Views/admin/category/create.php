@@ -54,6 +54,15 @@
                                     <?= session()->getFlashdata('validation')['category_description'] ?? '' ?>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="position">Category Position</label>
+                                <input type="number" name="position"
+                                       class="form-control <?= isset(session()->getFlashdata('validation')['position']) ? 'is-invalid' : '' ?>"
+                                       id="position" min="0" value="<?= old('position') ?? '' ?>" tabindex="1">
+                                <div class="invalid-feedback">
+                                    <?= session()->getFlashdata('validation')['position'] ?? '' ?>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" tabindex="6">

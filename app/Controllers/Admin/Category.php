@@ -55,16 +55,19 @@ class Category extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $this->request->getPost('category_name');
             $description = $this->request->getPost('category_description');
+            $position = $this->request->getPost('position');
 
             $post_data = [
                 'category_name' => $name,
                 'category_description' => $description,
                 'added_by' => $this->session->get('imsa_id'),
+                'position' => $position,
             ];
 
             $validated = $this->validate([
                 'category_name' => ['label' => 'Category name', 'rules' => 'required|alpha_space'],
                 'category_description' => ['label' => 'Category description', 'rules' => 'max_length[140]|permit_empty'],
+                'position' => ['label' => 'Position', 'rules' => 'is_natural|permit_empty']
             ]);
 
             if ($validated) {

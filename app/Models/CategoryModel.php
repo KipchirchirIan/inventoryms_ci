@@ -18,6 +18,7 @@ class CategoryModel extends Model
         'category_name',
         'category_description',
         'added_by',
+        'position'
     ];
 
     protected $useTimestamps = true;
