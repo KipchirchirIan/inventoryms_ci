@@ -33,7 +33,8 @@ class ItemHistoryModel extends Model
     public function findAll(int $limit = 0, int $offset = 0)
     {
         // Todo: Use prepared statements or query builders here
-        $query = "SELECT * ";
+        $query = "SELECT item_history_id, items.item_name, check_in, check_out, ";
+        $query .= "uoms.uom_full, first_name, last_name, items_history.created_at ";
         $query .= "FROM items_history ";
         $query .= "LEFT JOIN items ON items_history.item_id = items.item_id ";
         $query .= "LEFT JOIN uoms ON items.uom_id = uoms.uom_id ";
