@@ -138,7 +138,7 @@ class Dashboard extends BaseController
     {
         $i = 1;
         $itemModel = model('ItemModel');
-        $items = $itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')->findAll();
+        $items = $itemModel->join('uoms', 'uoms.uom_id = items.uom_id')->findAll();
 
         $html = '
         <html lang="en">

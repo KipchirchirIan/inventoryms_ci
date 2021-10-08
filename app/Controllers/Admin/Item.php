@@ -45,7 +45,7 @@ class Item extends BaseController
             $action = 'read';
 
             if ($this->e->enforce($sub, $obj, $action) === true) {
-                $data['items'] = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
+                $data['items'] = $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')
                     ->findAll();
             } else {
                 throw new \Exception('Request Denied!', 403);
@@ -71,8 +71,8 @@ class Item extends BaseController
             return redirect()->back()->with('error_message', 'Missing/Invalid ID');
         }
 
-        $item = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
-            ->join('tbl_item_categories', 'tbl_items.category_id = tbl_item_categories.category_id')
+        $item = $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')
+            ->join('item_categories', 'items.category_id = item_categories.category_id')
             ->find($id);
 
         if (!$item) {
@@ -350,7 +350,7 @@ class Item extends BaseController
             $action = 'read';
 
             if ($this->e->enforce($sub, $obj, $action) === true) {
-                $data['items'] = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')
+                $data['items'] = $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')
                     ->findAll();
             } else {
                 throw new \Exception('Request Denied!', 403);
@@ -373,7 +373,7 @@ class Item extends BaseController
             return redirect()->back();
         }
 
-        $item = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')->find($id);
+        $item = $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')->find($id);
 
         if (!$item) {
             $this->session->setFlashdata('error_message', 'Record does not exist!');
@@ -494,7 +494,7 @@ class Item extends BaseController
             return redirect()->back();
         }
 
-        $item = $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')->find($id);
+        $item = $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')->find($id);
 
         if (!$item) {
             $this->session->setFlashdata('error_message', 'Record does not exist!');

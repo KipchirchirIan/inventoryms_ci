@@ -29,7 +29,7 @@ class Item
     public function itemList()
     {
         $data = [
-            'items' => $this->itemModel->join('tbl_uoms', 'tbl_uoms.uom_id = tbl_items.uom')->findAll(5)
+            'items' => $this->itemModel->join('uoms', 'uoms.uom_id = items.uom_id')->findAll(5)
         ];
 
         return view('admin/_partials/item_list', $data);
