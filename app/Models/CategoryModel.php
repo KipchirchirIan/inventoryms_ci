@@ -7,18 +7,20 @@ use CodeIgniter\Model;
 class CategoryModel extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'tbl_item_categories';
+    protected $table = 'item_categories';
     protected $primaryKey = 'category_id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
     protected $returnType = 'array';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
     protected $protectFields = true;
     protected $allowedFields = [
         'category_name',
         'category_description',
         'added_by',
     ];
+
+    protected $useTimestamps = true;
 
     // Validation
     protected $validationRules = [];

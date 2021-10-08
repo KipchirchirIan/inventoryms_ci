@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 class ItemHistoryModel extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'tbl_items_history';
+    protected $table = 'items_history';
     protected $primaryKey = 'item_history_id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
@@ -22,6 +22,8 @@ class ItemHistoryModel extends Model
         'checked_by',
     ];
 
+    protected $useTimestamps = true;
+
     // Validation
     protected $validationRules = [];
     protected $validationMessages = [];
@@ -32,7 +34,7 @@ class ItemHistoryModel extends Model
     {
         // Todo: Use prepared statements or query builders here
         $query = "SELECT * ";
-        $query .= "FROM tbl_items_history ";
+        $query .= "FROM items_history ";
         $query .= "LEFT JOIN tbl_items ON tbl_items_history.item_id = tbl_items.item_id ";
         $query .= "LEFT JOIN tbl_uoms ON tbl_items.uom = tbl_uoms.uom_id ";
         $query .= "LEFT JOIN ( ";

@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class UomModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'tbl_uoms';
+	protected $table                = 'uoms';
 	protected $primaryKey           = 'uom_id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
-	protected $useSoftDeletes       = false;
+	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
 	protected $allowedFields        = [
 	    'uom_short',
@@ -21,6 +21,7 @@ class UomModel extends Model
         'added_by'
         ];
 
+    protected $useTimestamps = true;
 
 	// Validation
 	protected $validationRules      = [];

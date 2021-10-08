@@ -9,14 +9,16 @@ use CodeIgniter\Validation\ValidationInterface;
 class SuperAdminModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'tbl_superadmins';
+	protected $table                = 'superadmins';
 	protected $primaryKey           = 'sadmin_id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
-	protected $useSoftDeletes       = false;
+	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
 	protected $allowedFields        = ['email', 'password'];
+
+    protected $useTimestamps = true;
 
 	// Validation
 	protected $validationRules      = [];
@@ -35,7 +37,7 @@ class SuperAdminModel extends Model
     public function getSingle($email)
     {
         $where['email'] = $email;
-        $result = $this->db->table('tbl_superadmins')->where('email', $where)->get();
+        $result = $this->db->table('superadmins')->where('email', $where)->get();
 
         return $result->getRowArray();
     }

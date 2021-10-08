@@ -10,12 +10,12 @@ use CodeIgniter\Validation\ValidationInterface;
 class ItemModel extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'tbl_items';
+    protected $table = 'items';
     protected $primaryKey = 'item_id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
     protected $returnType = 'array';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
     protected $protectFields = true;
     protected $allowedFields = [
         'item_name',
@@ -27,6 +27,8 @@ class ItemModel extends Model
         'added_by',
         'last_modified_by',
     ];
+
+    protected $useTimestamps = true;
 
     // Validation
     protected $validationRules = [];
@@ -56,13 +58,13 @@ class ItemModel extends Model
 
     public function getPrevMonthCheckoutData()
     {
-        $sql = "select tbl_items_history.item_id, tbl_items.item_name, uom_full, sum(check_out) as checkout_count
-                from tbl_items_history
-                inner join tbl_items
-                on tbl_items_history.item_id = tbl_items.item_id
-                inner join tbl_uoms
-                on tbl_uoms.uom_id = tbl_items.uom
-                where month(tbl_items_history.created_at) = month(curdate()) - 1
+        $sql = "select items_history.item_id, items.item_name, uom_full, sum(check_out) as checkout_count
+                from items_history
+                inner join items
+                on items_history.item_id = items.item_id
+                inner join uoms
+                on uoms.uom_id = items.uom_id
+                where month(items_history.created_at) = month(curdate()) - 1
                 group by item_id;";
 
         return $this->db->query($sql)->getResultArray();

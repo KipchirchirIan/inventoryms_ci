@@ -9,7 +9,7 @@ use CodeIgniter\Validation\ValidationInterface;
 class AdminModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'tbl_admins';
+	protected $table                = 'admins';
 	protected $primaryKey           = 'admin_id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
@@ -17,6 +17,8 @@ class AdminModel extends Model
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
 	protected $allowedFields        = ['first_name', 'last_name', 'position', 'email', 'password'];
+
+    protected $useTimestamps = true;
 
 	// Validation
 	protected $validationRules      = 'admin_create';

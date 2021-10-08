@@ -9,7 +9,7 @@ use CodeIgniter\Validation\ValidationInterface;
 class EmployeeModel extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'tbl_employees';
+    protected $table = 'employees';
     protected $primaryKey = 'emp_id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
@@ -24,6 +24,8 @@ class EmployeeModel extends Model
         'password',
         'added_by'
     ];
+
+    protected $useTimestamps = true;
 
     // Validation
     protected $validationRules = [];
