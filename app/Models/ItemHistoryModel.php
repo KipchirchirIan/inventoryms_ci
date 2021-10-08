@@ -35,15 +35,15 @@ class ItemHistoryModel extends Model
         // Todo: Use prepared statements or query builders here
         $query = "SELECT * ";
         $query .= "FROM items_history ";
-        $query .= "LEFT JOIN tbl_items ON tbl_items_history.item_id = tbl_items.item_id ";
-        $query .= "LEFT JOIN tbl_uoms ON tbl_items.uom = tbl_uoms.uom_id ";
+        $query .= "LEFT JOIN items ON items_history.item_id = items.item_id ";
+        $query .= "LEFT JOIN uoms ON items.uom_id = uoms.uom_id ";
         $query .= "LEFT JOIN ( ";
         $query .= "SELECT first_name, last_name, email ";
-        $query .= "FROM tbl_admins ";
+        $query .= "FROM admins ";
         $query .= "UNION ";
         $query .= "SELECT first_name, last_name, email ";
-        $query .= "FROM tbl_employees ";
-        $query .= ") as tbl_users ON tbl_items_history.checked_by = tbl_users.email ";
+        $query .= "FROM employees ";
+        $query .= ") as users ON items_history.checked_by = users.email ";
 
         $result = $this->db->query($query);
 
