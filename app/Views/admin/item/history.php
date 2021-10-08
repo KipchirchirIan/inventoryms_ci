@@ -60,7 +60,7 @@
                                                 <?= uom_formatter($item['item_name'], $item['check_out'], $item['uom_full']) ?>
                                             </td>
                                             <td><?= $item['first_name'] . ' ' . $item['last_name'] ?></td>
-                                            <td><?= $item['created_at'] ?></td>
+                                            <td><?= date("M d, y h:i a", strtotime($item['created_at'])) ?></td>
                                             <td>
                                                 <a href="#"
                                                    title="Undo"><i class="fas fa-undo">&nbsp;</i></a>
