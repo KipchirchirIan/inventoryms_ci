@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-md" id="itemsTable">
+    <table class="table table-bordered table-md datatable-lize" id="itemsTable">
         <thead>
         <tr>
             <th>ID #</th>
