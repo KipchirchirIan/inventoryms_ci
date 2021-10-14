@@ -599,9 +599,14 @@ class Item extends BaseController
         return view('admin/item/history', $data);
     }
 
-    public function checkoutDataByMonthYear()
+    public function checkoutDataByMonthYear($monthNum)
     {
-        $month = (int) ($this->request->getGet('month_num') ?? Time::now()->month);
+        $month = (int) $monthNum;
+
+        if (empty($monthNum) || !is_numeric($monthNum) || $monthNum < 1 || $monthNum > 12) {
+            $month = Time::now()->month;
+        }
+
         $year = Time::now()->getYear();
 
         $itemModel = model('ItemModel');

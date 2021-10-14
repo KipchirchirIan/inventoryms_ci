@@ -54,19 +54,16 @@ $(document).ready(function () {
         let month = monthIndex + 1;
 
         $.ajax({
-            url: base_url + "/admin/item/checkout_data_by_monthyear",
+            url: base_url + "/admin/item/checkout_data_by_monthyear/" + month,
             type: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
             },
-            data: {
-                month_num: month
-            },
             success: function (response, textStatus) {
                 let respJson = JSON.parse(response);
-                console.log(respJson);
+                // console.log(respJson);
                 $('#checkoutTable').html(respJson.data.table);
-                $('#checkoutTblDownloadLink').html('<a href="' + base_url + '/admin/dashboard/print/checkout_report?month_num=' + month + '" class="btn btn-primary mt-2" role="button">Download PDF</a>');
+                $('#checkoutTblDownloadLink').html('<a href="' + base_url + '/admin/dashboard/print/checkout_report/' + month + '" class="btn btn-primary mt-2" role="button">Download PDF</a>');
 
                 if (respJson.data.count < 1) {
                     $('#checkoutTblDownloadLink a').addClass('disabled').attr('disabled', true);

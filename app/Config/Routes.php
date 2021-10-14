@@ -60,10 +60,10 @@ $routes->get('admin/employee/update/(:num)', 'Admin\Employee::update/$1');
 $routes->get('admin/item/edit/(:num)', 'Admin\Item::edit/$1');
 $routes->post('admin/item/update/(:num)', 'Admin\Item::update/$1');
 $routes->get('admin/dashboard/print/items', 'Admin\Dashboard::printItemsList', ['as' => 'print_itemsList']);
-$routes->get('admin/dashboard/print/checkout_report', 'Admin\Dashboard::printMonthlyCheckoutContent', ['as' => 'checkout_report']);
+$routes->get('admin/dashboard/print/checkout_report/(:num)', 'Admin\Dashboard::printMonthlyCheckoutContent/$1', ['as' => 'checkout_report']);
 $routes->get('admin/logout', 'Admin\Dashboard::logout');
 
-$routes->get('admin/item/checkout_data_by_monthyear', 'Admin\Item::checkoutDataByMonthYear');
+$routes->get('admin/item/checkout_data_by_monthyear/(:num)', 'Admin\Item::checkoutDataByMonthYear/$1');
 
 /*
  * --------------------------------------------------------------------

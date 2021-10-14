@@ -211,9 +211,9 @@ class Dashboard extends BaseController
         return $html;
     }
 
-    public function printMonthlyCheckoutContent()
+    public function printMonthlyCheckoutContent($monthNum)
     {
-        $content = $this->monthlyCheckoutContent();
+        $content = $this->monthlyCheckoutContent($monthNum);
 
         $mpdf = new \Mpdf\Mpdf([
             'margin_left' => 20,
@@ -233,9 +233,14 @@ class Dashboard extends BaseController
         $mpdf->Output("RDC-Checkout-Report-{$content['month']}-{$content['year']}.pdf", \Mpdf\Output\Destination::DOWNLOAD);
     }
 
-    public function monthlyCheckoutContent()
+    public function monthlyCheckoutContent($monthNum)
     {
-        $month = (int) ($this->request->getGet('month_num') ?? Time::now()->month);
+        $month = (int) $monthNum;
+
+        if (empty($monthNum) || !is_numeric($monthNum) || $monthNum < 1 || $monthNum > 12) {
+            $month = Time::now()->month;
+        }
+
         $year = Time::now()->getYear();
         $time = Time::createFromDate($year, $month);
         $monthFullText = $time->toLocalizedString('MMM');
