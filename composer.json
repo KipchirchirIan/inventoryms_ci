@@ -8,8 +8,10 @@
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
 		"casbin/casbin": "^3.6",
-		"mpdf/mpdf": "^8.0"
-	},
+		"mpdf/mpdf": "^8.0",
+		"lavary/crunz": "^3.0",
+      	"ext-json": "*"
+    },
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
 		"mikey179/vfsstream": "^1.6",
