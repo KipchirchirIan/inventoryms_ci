@@ -27,6 +27,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
+    <script>var base_url = "<?= base_url() ?>";</script>
 </head>
 <body>
     <div id="app">
