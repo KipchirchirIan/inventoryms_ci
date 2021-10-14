@@ -69,4 +69,19 @@ class ItemModel extends Model
 
         return $this->db->query($sql)->getResultArray();
     }
+
+    public function getChekoutDataByMonthYear($month, $year)
+    {
+        $sql = "select items_history.item_id, items.item_name, uom_full, sum(check_out) as checkout_count
+                from items_history
+                inner join items
+                on items_history.item_id = items.item_id
+                inner join uoms
+                on uoms.uom_id = items.uom_id
+                where month(items_history.created_at) = {$month} and year(items_history.created_at) = {$year}
+                group by item_id
+                limit 5;";
+
+        return $this->db->query($sql)->getResultArray();
+    }
 }

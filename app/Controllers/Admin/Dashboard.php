@@ -7,6 +7,7 @@ use App\Models\AdminModel;
 use App\Models\EmployeeModel;
 use Casbin\Enforcer;
 use Casbin\Exceptions\CasbinException;
+use CodeIgniter\I18n\Time;
 
 class Dashboard extends BaseController
 {
@@ -212,7 +213,7 @@ class Dashboard extends BaseController
 
     public function printMonthlyCheckoutContent()
     {
-        $html = $this->monthlyCheckoutContent();
+        $content = $this->monthlyCheckoutContent();
 
         $mpdf = new \Mpdf\Mpdf([
             'margin_left' => 20,
@@ -224,19 +225,23 @@ class Dashboard extends BaseController
         ]);
 
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("Rescue Dada Centre - Checkout Report(September)");
+        $mpdf->SetTitle("Rescue Dada Centre Checkout Report-{{$content['month']}-{$content['year']}}");
         $mpdf->SetAuthor("Rescue Dada Centre");
         $mpdf->SetDisplayMode('fullpage');
 
-        $mpdf->WriteHTML($html);
-        $mpdf->Output('RDC-checkout-sept.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+        $mpdf->WriteHTML($content['html']);
+        $mpdf->Output("RDC-Checkout-Report-{$content['month']}-{$content['year']}.pdf", \Mpdf\Output\Destination::DOWNLOAD);
     }
 
     public function monthlyCheckoutContent()
     {
+        $month = (int) ($this->request->getGet('month_num') ?? Time::now()->month);
+        $year = Time::now()->getYear();
+        $time = Time::createFromDate($year, $month);
+        $monthFullText = $time->toLocalizedString('MMM');
         $i = 1;
         $itemModel = model('ItemModel');
-        $items = $itemModel->getPrevMonthCheckoutData();
+        $items = $itemModel->getChekoutDataByMonthYear($month, $year);
 
         $html = '
         <html lang="en">
@@ -305,6 +310,6 @@ class Dashboard extends BaseController
         $html .= '</body>';
         $html .= '</html>';
 
-        return $html;
+        return array('html' => $html, 'month' => $monthFullText, 'year' => $year);
     }
 }

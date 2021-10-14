@@ -63,6 +63,8 @@ $routes->get('admin/dashboard/print/items', 'Admin\Dashboard::printItemsList', [
 $routes->get('admin/dashboard/print/checkout_report', 'Admin\Dashboard::printMonthlyCheckoutContent', ['as' => 'checkout_report']);
 $routes->get('admin/logout', 'Admin\Dashboard::logout');
 
+$routes->get('admin/item/checkout_data_by_monthyear', 'Admin\Item::checkoutDataByMonthYear');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

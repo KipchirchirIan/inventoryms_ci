@@ -9,6 +9,8 @@ use App\Models\ItemModel;
 use App\Models\UomModel;
 use Casbin\Enforcer;
 use Casbin\Exceptions\CasbinException;
+use CodeIgniter\I18n\Time;
+use CodeIgniter\View\Table;
 use Config\Services;
 
 class Item extends BaseController
@@ -595,5 +597,58 @@ class Item extends BaseController
         }
 
         return view('admin/item/history', $data);
+    }
+
+    public function checkoutDataByMonthYear()
+    {
+        $month = (int) ($this->request->getGet('month_num') ?? Time::now()->month);
+        $year = Time::now()->getYear();
+
+        $itemModel = model('ItemModel');
+        $items = $itemModel->getChekoutDataByMonthYear($month, $year);
+//        $fmtItems = [];
+//
+//        if ($items) {
+//            foreach ($items as $item) {
+//                $fmtItems['item_id'] = $item['item_id'];
+//                $fmtItems['item_name'] = $item['item_name'];
+//                $fmtItems['qty_utilized'] = $item['checkout_count'] . " " . uom_formatter($item['item_name'], $item['checkout_count'], $item['uom_full']);
+//            }
+//        }
+
+
+        if ($items) {
+            $customSettings = ['table_open' => '<table class="table table-bordered table-md datatable-lize">'];
+        } else {
+            $customSettings = ['table_open' => '<table class="table table-bordered table-md">'];
+        }
+
+        $table = new Table($customSettings);
+        $table->setHeading('#', 'Item', 'Qty Utilized');
+
+        if (!$items) {
+            $table->addRow(['data' => '0 records found', 'colspan' => 8, 'class' => 'text-center']);
+        } else {
+            foreach ($items as $item) {
+                $table->addRow(
+                    [
+                        $item['item_id'],
+                        $item['item_name'],
+                        $item['checkout_count'] . " " . uom_formatter($item['item_name'], $item['checkout_count'], $item['uom_full'])
+                    ]
+                );
+            }
+        }
+
+        //        echo json_encode([
+//            'items' => $fmtItems,
+//        ]);
+
+       echo json_encode([
+           'data' => [
+               'count' => count($items),
+               'table' => $table->generate(),
+           ]
+       ]);
     }
 }

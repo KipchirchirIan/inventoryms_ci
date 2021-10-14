@@ -333,21 +333,21 @@
                         <h4 class="d-inline">Monthly Checkout List</h4>
                         <div class="card-header-action">
                             <div class="dropdown d-inline">
-                                <a class="font-weight-600 dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" id="orders-month">February</a>
-                                <ul class="dropdown-menu dropdown-menu-sm">
+                                <a class="font-weight-600 dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" id="current-month"></a>
+                                <ul class="dropdown-menu dropdown-menu-sm months-list">
                                     <li class="dropdown-title">Select Month</li>
-                                    <li><a href="#" class="dropdown-item">January</a></li>
-                                    <li><a href="#" class="dropdown-item">February</a></li>
-                                    <li><a href="#" class="dropdown-item">March</a></li>
-                                    <li><a href="#" class="dropdown-item">April</a></li>
-                                    <li><a href="#" class="dropdown-item">May</a></li>
-                                    <li><a href="#" class="dropdown-item">June</a></li>
-                                    <li><a href="#" class="dropdown-item">July</a></li>
-                                    <li><a href="#" class="dropdown-item active">August</a></li>
-                                    <li><a href="#" class="dropdown-item">September</a></li>
-                                    <li><a href="#" class="dropdown-item">October</a></li>
-                                    <li><a href="#" class="dropdown-item">November</a></li>
-                                    <li><a href="#" class="dropdown-item">December</a></li>
+                                    <li><a href="#" class="dropdown-item month">January</a></li>
+                                    <li><a href="#" class="dropdown-item month">February</a></li>
+                                    <li><a href="#" class="dropdown-item month">March</a></li>
+                                    <li><a href="#" class="dropdown-item month">April</a></li>
+                                    <li><a href="#" class="dropdown-item month">May</a></li>
+                                    <li><a href="#" class="dropdown-item month">June</a></li>
+                                    <li><a href="#" class="dropdown-item month">July</a></li>
+                                    <li><a href="#" class="dropdown-item month">August</a></li>
+                                    <li><a href="#" class="dropdown-item month">September</a></li>
+                                    <li><a href="#" class="dropdown-item month">October</a></li>
+                                    <li><a href="#" class="dropdown-item month">November</a></li>
+                                    <li><a href="#" class="dropdown-item month">December</a></li>
                                 </ul>
                             </div>
                         </div>
