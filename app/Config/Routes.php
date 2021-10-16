@@ -65,6 +65,8 @@ $routes->get('admin/logout', 'Admin\Dashboard::logout');
 
 $routes->get('admin/item/checkout_data_by_monthyear/(:num)', 'Admin\Item::checkoutDataByMonthYear/$1');
 
+$routes->match(['cli', 'get'], 'admin/dashboard/email/checkout_report', 'Admin\Dashboard::emailMonthlyQtyUtilReport', ['as' => 'email/checkout_report']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

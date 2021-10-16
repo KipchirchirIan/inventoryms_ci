@@ -317,4 +317,36 @@ class Dashboard extends BaseController
 
         return array('html' => $html, 'month' => $monthFullText, 'year' => $year);
     }
+
+    public function emailMonthlyQtyUtilReport()
+    {
+        $email = \Config\Services::email();
+        $email->setFrom('iloveday54@gmail.com', 'Rescue Dada Centre - System Report');
+        $email->setTo('potterke4@gmail.com');
+
+        $content = $this->monthlyCheckoutContent(Time::now()->month);
+
+        $mpdf = new \Mpdf\Mpdf([
+            'margin_left' => 20,
+            'margin_right' => 15,
+            'margin_top' => 48,
+            'margin_bottom' => 25,
+            'margin_header' => 10,
+            'margin_footer' => 10
+        ]);
+
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Rescue Dada Centre Checkout Report-{{$content['month']}-{$content['year']}}");
+        $mpdf->SetAuthor("Rescue Dada Centre");
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML(utf8_encode($content['html']));
+        $buffer = $mpdf->Output("RDC-Checkout-Report-{$content['month']}-{$content['year']}.pdf", \Mpdf\Output\Destination::STRING_RETURN);
+
+        $email->setSubject("Monthly Report of Item Quantity Utilized for {$content['month']} {$content['year']}");
+        $email->setMessage("Please find attached a report of quantity of items utilized the previous month.");
+        $email->attach($buffer, "attachment", "RDC-Checkout-Report-{$content['month']}-{$content['year']}.pdf", "application/pdf");
+
+        $email->send();
+    }
 }
