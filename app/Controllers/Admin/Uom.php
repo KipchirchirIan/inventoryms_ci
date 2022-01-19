@@ -175,7 +175,7 @@ class Uom extends BaseController
         return view('admin/uom/create', $data);
     }
 
-    public function edit($id)
+    public function edit($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -194,7 +194,7 @@ class Uom extends BaseController
         return view('admin/uom/edit', $data);
     }
 
-    public function update($id)
+    public function update($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -257,7 +257,7 @@ class Uom extends BaseController
         return view('admin/uom/edit', $data);
     }
 
-    public function delete($id)
+    public function delete($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');

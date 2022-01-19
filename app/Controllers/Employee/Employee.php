@@ -47,7 +47,7 @@ class Employee extends BaseController
         return view('employee/employee/index', $data);
     }
 
-    public function show($id)
+    public function show($id = 0)
     {
         $data = array();
         // Check if logged in

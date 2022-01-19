@@ -59,7 +59,7 @@ class Item extends BaseController
         return view('admin/item/index', $data);
     }
 
-    public function show($id)
+    public function show($id = 0)
     {
         $data = array();
 
@@ -181,7 +181,7 @@ class Item extends BaseController
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit($id = 0)
     {
         $data = array();
         $data['categories'] = $this->categoryModel->findAll();
@@ -228,7 +228,7 @@ class Item extends BaseController
      * @return \CodeIgniter\HTTP\RedirectResponse
      * @throws \ReflectionException
      */
-    public function update($id)
+    public function update($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -296,7 +296,7 @@ class Item extends BaseController
         return redirect()->to('admin/item/index');
     }
 
-    public function delete($id)
+    public function delete($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -364,7 +364,7 @@ class Item extends BaseController
         return view('admin/item/checkInOut', $data);
     }
 
-    public function checkIn($id)
+    public function checkIn($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect('admin/login');
@@ -389,7 +389,7 @@ class Item extends BaseController
         return view('admin/item/checkIn', $data);
     }
 
-    public function updateCheckIn($id)
+    public function updateCheckIn($id = 0)
     {
         $item = $this->itemModel->find($id);
 
@@ -454,7 +454,7 @@ class Item extends BaseController
         return redirect()->back();
     }
 
-    public function updateQty($id, $quantity, $action = "")
+    public function updateQty($id = 0, $quantity = 0, $action = "")
     {
         try {
             $sub = $this->session->get('imsa_email');
@@ -485,7 +485,7 @@ class Item extends BaseController
         return false;
     }
 
-    public function checkOut($id)
+    public function checkOut($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect('admin/login');
@@ -510,7 +510,7 @@ class Item extends BaseController
         return view('admin/item/checkOut', $data);
     }
 
-    public function updateCheckOut($id)
+    public function updateCheckOut($id = 0)
     {
         $item = $this->itemModel->find($id);
 
@@ -601,7 +601,7 @@ class Item extends BaseController
 
     public function checkoutDataByMonthYear($monthNum)
     {
-        $month = (int) $monthNum;
+        $month = $monthNum;
 
         if (empty($monthNum) || !is_numeric($monthNum) || $monthNum < 1 || $monthNum > 12) {
             $month = Time::now()->month;

@@ -50,7 +50,7 @@ class Item extends BaseController
         return view('employee/item/index', $data);
     }
 
-    public function show($id)
+    public function show($id = 0)
     {
         $data = array();
 
@@ -118,7 +118,7 @@ class Item extends BaseController
         return view('employee/item/checkInOut', $data);
     }
 
-    public function checkIn($id)
+    public function checkIn($id = 0)
     {
         if (!$this->session->has('ims_logged_in')) {
             return redirect('employee/login');
@@ -144,7 +144,7 @@ class Item extends BaseController
         return view('employee/item/checkIn', $data);
     }
 
-    public function updateCheckIn($id)
+    public function updateCheckIn($id = 0)
     {
         $item = $this->itemModel->find($id);
 
@@ -209,7 +209,7 @@ class Item extends BaseController
         return redirect()->back();
     }
 
-    public function updateQty($id, $quantity, $action = "")
+    public function updateQty($id = 0, $quantity = 0, $action = "")
     {
         try {
             $sub = $this->session->get('ims_email');
@@ -240,7 +240,7 @@ class Item extends BaseController
         return false;
     }
 
-    public function checkOut($id)
+    public function checkOut($id = 0)
     {
         if (!$this->session->has('ims_logged_in')) {
             return redirect('employee/login');
@@ -265,7 +265,7 @@ class Item extends BaseController
         return view('employee/item/checkOut', $data);
     }
 
-    public function updateCheckOut($id)
+    public function updateCheckOut($id = 0)
     {
         $item = $this->itemModel->find($id);
 

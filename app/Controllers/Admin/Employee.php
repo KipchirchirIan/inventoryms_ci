@@ -58,7 +58,7 @@ class Employee extends BaseController
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws CasbinException
      */
-    public function show($id)
+    public function show($id = 0)
     {
         $data = array();
         // Check if logged in
@@ -186,7 +186,7 @@ class Employee extends BaseController
         return view('admin/employee/create', $data);
     }
 
-    public function edit($id)
+    public function edit($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -205,7 +205,7 @@ class Employee extends BaseController
         return view("admin/employee/edit", $data);
     }
 
-    public function update($id)
+    public function update($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
@@ -282,7 +282,7 @@ class Employee extends BaseController
 
     }
 
-    public function delete($id)
+    public function delete($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
             return redirect()->to('admin/login');
