@@ -69,3 +69,13 @@ body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > 
 .main-sidebar .sidebar-menu li.active a {
     color: #ec2c7c;
 }
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
+    color: #ec2c7c;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li > a:focus,
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > a,
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > a:hover {
+    background-color: #ec2c7c !important;
+}
