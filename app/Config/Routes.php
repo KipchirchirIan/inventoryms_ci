@@ -39,7 +39,7 @@ $routes->get('superadmin/dashboard', 'Superadmin\Dashboard::index');
 $routes->get('superadmin/admin', 'Superadmin\Admin::index');
 $routes->get('superadmin/logout', 'Superadmin\Dashboard::logout');
 
-$routes->get('/', 'Employee\Dashboard::index');
+$routes->get('/', 'Dashboard::index');
 $routes->match(['get', 'post'], 'employee/login', 'Employee\Dashboard::login');
 $routes->get('employee/', 'Employee\Dashboard::index');
 $routes->get('employee/dashboard', 'Employee\Dashboard::index');

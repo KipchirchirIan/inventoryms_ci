@@ -88,6 +88,10 @@ class Dashboard extends BaseController
             return redirect()->to('admin/dashboard');
         }
 
+        if ($this->session->has('ims_logged_in')) {
+            return redirect()->to('employee/dashboard');
+        }
+
         return view('admin/login');
     }
 

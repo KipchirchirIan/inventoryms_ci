@@ -76,6 +76,10 @@ class Dashboard extends BaseController
             return redirect()->to('employee/dashboard');
         }
 
+        if ($this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/dashboard');
+        }
+
         return view('employee/login');
     }
 
