@@ -314,7 +314,7 @@ class Employee extends BaseController
                         $this->e->savePolicy();
 
                         $this->session->setFlashdata('success_message', 'Record deleted successfully');
-                        return redirect()->back();
+                        return redirect()->to('admin/employee/index');
                     }
 
                     $this->session->setFlashdata('error_message', 'Failed to delete record!');
