@@ -76,7 +76,7 @@
                                         <option value="" disabled selected>--Select unit of measurement--
                                         </option>
                                         <?php foreach ($uoms as $uom) : ?>
-                                            <option value="<?= $uom['uom_id'] ?>"<?= ($uom['uom_id'] === $item['uom']) ? ' selected' : '' ?>>
+                                            <option value="<?= $uom['uom_id'] ?>"<?= ($uom['uom_id'] === $item['uom_id']) ? ' selected' : '' ?>>
                                                 <?= ucfirst($uom['uom_full']); ?></option>
                                         <?php endforeach; ?>
                                     </select>
