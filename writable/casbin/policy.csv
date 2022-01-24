@@ -11,9 +11,6 @@ p, user_group_admin, data_group, read
 p, user_group_admin, data_group, write
 p, user_group_admin, items_history, read
 p, user_group_admin, items_history, write
-g, johndoe@rescuedada.org, user_group_admin
-g, janedoe@rescuedada.org, user_group_emp
-g, reception@rescuedada.org, user_group_emp
 g2, employees, data_group
 g2, item_categories, data_group
 g2, uoms, data_group
