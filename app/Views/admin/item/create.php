@@ -72,6 +72,7 @@
                                         <label for="quantity">Quantity</label>
                                         <input type="number" name="quantity"
                                                min="0"
+                                               step="any"
                                                class="form-control <?= isset(session()->getFlashdata('validation')['quantity']) ? 'is-invalid' : '' ?>"
                                                id="quantity" value="<?= old('quantity') ?? '' ?>" tabindex="1">
 

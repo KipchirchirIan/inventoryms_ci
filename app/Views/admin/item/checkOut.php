@@ -53,7 +53,8 @@
                                     <label for="checkout_qty" class="d-block">Check Out Quantity</label>
                                     <input type="number" class="form-control w-25 d-inline" name="checkout_qty" id="checkout_qty"
                                            tabindex="1"
-                                           min="1">
+                                           step="any"
+                                           min="0.01">
                                     <span class="ml-1"><?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?></span>
                                 </div>
 

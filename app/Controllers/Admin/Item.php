@@ -145,7 +145,7 @@ class Item extends BaseController
 
             $validated = $this->validate([
                 'item_name' => ['label' => 'Item name', 'rules' => 'required'],
-                'quantity' => ['label' => 'Quantity', 'rules' => 'required|is_natural'],
+                'quantity' => ['label' => 'Quantity', 'rules' => 'required|numeric|greater_than_equal_to[0]'],
                 'uom' => ['label' => 'Unit of measurement', 'rules' => 'required'],
                 'category' => ['label' => 'Category', 'rules' => 'required|is_natural']
             ]);
@@ -411,13 +411,13 @@ class Item extends BaseController
             $checkin_qty = $this->request->getPost('checkin_qty');
 
             $validated = $this->validate([
-                'checkin_qty' => ['label' => 'Check in quantity', 'rules' => 'required|is_natural_no_zero'],
+                'checkin_qty' => ['label' => 'Check in quantity', 'rules' => 'required|numeric|greater_than_equal_to[0]'],
             ]);
 
             $insert_data = [
                 'item_id' => $item['item_id'],
                 'check_in' => $checkin_qty,
-                'check_out' => 0,
+                'check_out' => 0.0,
                 'checked_by' => $this->session->get('imsa_email'),
             ];
 
@@ -454,7 +454,7 @@ class Item extends BaseController
         return redirect()->back();
     }
 
-    public function updateQty($id = 0, $quantity = 0, $action = "")
+    public function updateQty($id = 0, $quantity = 0.0, $action = "")
     {
         try {
             $sub = $this->session->get('imsa_email');
@@ -532,12 +532,12 @@ class Item extends BaseController
             $checkout_qty = $this->request->getPost('checkout_qty');
 
             $validated = $this->validate([
-                'checkout_qty' => ['label' => 'Check out quantity', 'rules' => 'required|is_natural_no_zero'],
+                'checkout_qty' => ['label' => 'Check out quantity', 'rules' => 'required|numeric|greater_than_equal_to[0]'],
             ]);
 
             $insert_data = [
                 'item_id' => $item['item_id'],
-                'check_in' => 0,
+                'check_in' => 0.0,
                 'check_out' => $checkout_qty,
                 'checked_by' => $this->session->get('imsa_email'),
             ];

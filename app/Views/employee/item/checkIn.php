@@ -56,7 +56,8 @@
                                     <input type="number" class="form-control w-25 d-inline" name="checkin_qty"
                                            id="checkin_qty"
                                            tabindex="1"
-                                           min="1">
+                                           step="any"
+                                           min="0.01">
                                     <span class="ml-1"><?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?></span>
                                 </div>
 
