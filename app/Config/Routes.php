@@ -51,6 +51,7 @@ $routes->match(['get', 'post'],'admin/login', 'Admin\Dashboard::login');
 $routes->get('admin/', 'Admin\Dashboard::index');
 $routes->get('admin/index', 'Admin\Dashboard::index');
 $routes->get('admin/dashboard', 'Admin\Dashboard::index');
+$routes->get('admin/profile', 'Admin\Profile::index');
 $routes->get('admin/employee/', 'Admin\Employee::index');
 $routes->get('admin/employee/index', 'Admin\Employee::index');
 $routes->get('admin/superadmin/index', 'Admin\Dashboard::index');

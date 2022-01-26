@@ -215,7 +215,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="<?php echo base_url(); ?>dist/features_profile" class="dropdown-item has-icon">
+                <a href="<?= base_url("admin/profile"); ?>" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
                 <a href="<?php echo base_url(); ?>dist/features_activities" class="dropdown-item has-icon">
