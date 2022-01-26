@@ -52,6 +52,8 @@ $routes->get('admin/', 'Admin\Dashboard::index');
 $routes->get('admin/index', 'Admin\Dashboard::index');
 $routes->get('admin/dashboard', 'Admin\Dashboard::index');
 $routes->get('admin/profile', 'Admin\Profile::index');
+$routes->get('admin/profile/change_password', 'Admin\Profile::changePassword', ['as' => 'admin/profile/change_password']);
+$routes->post('admin/profile/change_password', 'Admin\Profile::attemptChangePassword');
 $routes->get('admin/employee/', 'Admin\Employee::index');
 $routes->get('admin/employee/index', 'Admin\Employee::index');
 $routes->get('admin/superadmin/index', 'Admin\Dashboard::index');

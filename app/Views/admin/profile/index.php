@@ -52,6 +52,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <a class="btn btn-primary mr-2" role="button" aria-pressed="true" href="<?= base_url('admin/profile/edit/' . $admin['admin_id']) ?>">Edit Profile</a>
+                            <a class="btn btn-primary mr-2" role="button" aria-pressed="true" href="<?= base_url('admin/profile/change_password') ?>">Change Password</a>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Change Password</h4>
+                            <h4>Change your password</h4>
                         </div>
                         <div class="card-body">
                             <?php if (session()->has('success_message')) : ?>
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
-                            <form action="<?= route_to('Admin\Employee::attemptChangePassword') ?>" method="post">
+                            <form action="<?= route_to('Admin\Profile::attemptChangePassword') ?>" method="post">
                                 <div class="form-group">
                                     <label for="old_password">Old Password</label>
                                     <input type="password" name="old_password"
