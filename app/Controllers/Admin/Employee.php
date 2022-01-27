@@ -282,6 +282,51 @@ class Employee extends BaseController
 
     }
 
+    public function reset_password($id = 0)
+    {
+        if (!$this->session->has('imsa_logged_in')) {
+            return redirect()->to('admin/login');
+        }
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->session->setFlashdata('error_message', 'Missing/Invalid employee ID');
+            return redirect()->back();
+        }
+
+        $employee = $this->employeeModel->find($id);
+
+        if (!$employee) {
+            redirect()->back()->with('error_message', 'Record does not exist!');
+        }
+
+        $default_password = env('DEFAULT_PASSWORD');
+        $new_data = [
+            'password' => password_hash($default_password, PASSWORD_DEFAULT),
+        ];
+
+        try {
+            $sub = $this->session->get('imsa_email');
+            $obj = 'employees';
+            $action = 'write';
+
+            if ($this->e->enforce($sub, $obj, $action) == true) {
+                $result = $this->employeeModel->update($id, $new_data);
+
+                if ($result) {
+                    return redirect()->back()->with('success_message', 'Password reset successfully');
+                }
+
+                return redirect()->back()->with('error_message', 'Password reset failed!');
+            }
+
+            throw new \Exception('Request Denied!', 403);
+        } catch (CasbinException | \Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return redirect()->back();
+    }
+
     public function delete($id = 0)
     {
         if (!$this->session->has('imsa_logged_in')) {
