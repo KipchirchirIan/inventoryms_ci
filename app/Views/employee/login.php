@@ -37,7 +37,16 @@
                         <div class="card-header"><h4>Login</h4></div>
 
                         <div class="card-body">
-                            <?php if (session()->has('error_message')) : ?>
+                            <?php if (session()->has('success_message')) : ?>
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <div class="alert-body">
+                                        <button class="close" data-dismiss="alert">
+                                            <span>&times;</span>
+                                        </button>
+                                        <?= session()->get('success_message') ?>
+                                    </div>
+                                </div>
+                            <?php elseif (session()->has('error_message')) : ?>
                                 <div class="alert alert-danger alert-dismissible show fade">
                                     <div class="alert-body">
                                         <button class="close" data-dismiss="alert">

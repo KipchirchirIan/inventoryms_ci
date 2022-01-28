@@ -45,6 +45,9 @@ $routes->get('employee/', 'Employee\Dashboard::index');
 $routes->get('employee/dashboard', 'Employee\Dashboard::index');
 $routes->get('employee/index', 'Employee\Dashboard::index');
 $routes->get('employee/employee/show/(:num)', 'Employee\Employee::show/$1');
+$routes->get('employee/profile', 'Employee\Profile::index');
+$routes->get('employee/profile/change_password', 'Employee\Profile::changePassword', ['as' => 'employee/profile/change_password']);
+$routes->post('employee/profile/change_password', 'Employee\Profile::attemptChangePassword');
 $routes->get('employee/logout', 'Employee\Dashboard::logout');
 
 $routes->match(['get', 'post'],'admin/login', 'Admin\Dashboard::login');

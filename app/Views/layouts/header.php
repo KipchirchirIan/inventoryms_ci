@@ -26,7 +26,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="<?php echo current_url(); ?>" class="dropdown-item has-icon">
+                <a href="<?php echo base_url("employee/profile"); ?>" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
                 <a href="<?php echo current_url(); ?>" class="dropdown-item has-icon">
