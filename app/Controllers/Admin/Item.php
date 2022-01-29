@@ -535,6 +535,10 @@ class Item extends BaseController
                 'checkout_qty' => ['label' => 'Check out quantity', 'rules' => 'required|numeric|greater_than_equal_to[0]'],
             ]);
 
+            if ($checkout_qty > $item['quantity']) {
+                return redirect()->back()->with('error_message', 'Checkout quantity exceeds item quantity!');
+            }
+
             $insert_data = [
                 'item_id' => $item['item_id'],
                 'check_in' => 0.0,

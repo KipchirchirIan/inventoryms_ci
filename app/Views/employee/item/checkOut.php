@@ -57,7 +57,8 @@
                                            id="checkout_qty"
                                            tabindex="1"
                                            step="any"
-                                           min="0.01">
+                                           min="0.01"
+                                           max="<?= $item['quantity'] ?>">
                                     <span class="ml-1"><?= uom_formatter($item['item_name'], $item['quantity'], $item['uom_full']) ?></span>
                                 </div>
 
