@@ -69,11 +69,8 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email"
-                                       class="form-control <?= isset(session()->getFlashdata('validation')['email']) ? 'is-invalid' : ''; ?> ?>"
-                                       id="email" value="<?= old('email') ?? $employee['email'] ?>" tabindex="4">
-                                <div class="invalid-feedback">
-                                    <?= session()->getFlashdata('validation')['email'] ?? '' ?>
-                                </div>
+                                       class="form-control-plaintext"
+                                       id="email" value="<?= old('email') ?? $employee['email'] ?>" tabindex="4" readonly>
                             </div>
 
                             <div class="form-group">

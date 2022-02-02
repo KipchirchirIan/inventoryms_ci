@@ -230,20 +230,17 @@ class Employee extends BaseController
             $fname = $this->request->getPost('first_name');
             $lname = $this->request->getPost('last_name');
             $position = $this->request->getPost('position');
-            $email = $this->request->getPost('email');
 
             $new_data = [
                 'first_name' => $fname,
                 'last_name' => $lname,
                 'position' => $position,
-                'email' => $email,
             ];
 
             $validated = $this->validate([
                 'first_name' => ['label' => 'First Name', 'rules' => 'required|alpha'],
                 'last_name' => ['label' => 'Last Name', 'rules' => 'required|alpha'],
                 'position' => ['label' => 'Position', 'rules' => 'alpha_space|permit_empty'],
-                'email' => ['label' => 'Email', 'rules' => 'required|valid_email'],
             ]);
 
             if ($validated) {
