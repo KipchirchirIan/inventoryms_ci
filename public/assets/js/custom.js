@@ -13,7 +13,9 @@ $(document).ready(function () {
         "July", "August", "September", "October", "November", "December"
     ];
 
-    var table = $(".datatable-lize").dataTable();
+    if ($(".datatable-lize").length) {
+        var table = $(".datatable-lize").dataTable();
+    }
 
     /* Disable submit buttons after form submit
        to avoid double submissions
