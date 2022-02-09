@@ -81,14 +81,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password"
-                                       class="form-control <?= (isset($validation) && $validation->hasError('password')) ? 'is-invalid' : ''; ?> ?>"
-                                       id="password" tabindex="5">
-                                <?php if (isset($validation) && $validation->hasError('password')): ?>
-                                    <div class="invalid-feedback">
-                                        <?= $validation->getError('password') ?>
+                                <div class="input-group">
+                                    <input type="password" name="password"
+                                           class="form-control <?= (isset($validation) && $validation->hasError('password')) ? 'is-invalid' : ''; ?> ?>"
+                                           id="password" tabindex="5">
+                                    <div class="input-group-append">
+                                    <span class="input-group-text show-hide-pass" style="cursor: pointer">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </span>
                                     </div>
-                                <?php endif; ?>
+                                    <?php if (isset($validation) && $validation->hasError('password')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation->getError('password') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
 
                             <div class="form-group">

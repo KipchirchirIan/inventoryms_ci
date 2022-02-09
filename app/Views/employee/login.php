@@ -79,10 +79,17 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <input id="password" type="password"
-                                           class="form-control <?= isset(session()->getFlashdata('validation')['password']) ? 'is-invalid' : ''; ?>"
-                                           name="password"
-                                           tabindex="2">
+                                    <div class="input-group">
+                                        <input id="password" type="password"
+                                               class="form-control <?= isset(session()->getFlashdata('validation')['password']) ? 'is-invalid' : ''; ?>"
+                                               name="password"
+                                               tabindex="2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text show-hide-pass" style="cursor: pointer;">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <?php if (isset(session()->getFlashdata('validation')['password'])): ?>
                                         <div class="invalid-feedback">
                                             <?= session()->getFlashdata('validation')['password'] ?>

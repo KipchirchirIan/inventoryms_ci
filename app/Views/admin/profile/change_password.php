@@ -37,29 +37,50 @@
                             <form action="<?= route_to('Admin\Profile::attemptChangePassword') ?>" method="post">
                                 <div class="form-group">
                                     <label for="old_password">Old Password</label>
-                                    <input type="password" name="old_password"
-                                           class="form-control<?= isset(session()->getFlashdata('validation')['old_password']) ? ' is-invalid' : '' ?>"
-                                           id="old_password" value="<?= old('old_password') ?? '' ?>">
-                                    <div class="invalid-feedback">
-                                        <?= session()->getFlashdata('validation')['old_password'] ?? '' ?>
+                                    <div class="input-group">
+                                        <input type="password" name="old_password"
+                                               class="form-control<?= isset(session()->getFlashdata('validation')['old_password']) ? ' is-invalid' : '' ?>"
+                                               id="old_password" value="<?= old('old_password') ?? '' ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text show-hide-pass" style="cursor: pointer;">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <?= session()->getFlashdata('validation')['old_password'] ?? '' ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="new_password">New Password</label>
-                                    <input type="password" name="new_password"
-                                           class="form-control<?= isset(session()->getFlashdata('validation')['new_password']) ? ' is-invalid' : '' ?>"
-                                           id="new_password" value="<?= old('new_password') ?? '' ?>">
-                                    <div class="invalid-feedback">
-                                        <?= session()->getFlashdata('validation')['new_password'] ?? '' ?>
+                                    <div class="input-group">
+                                        <input type="password" name="new_password"
+                                               class="form-control<?= isset(session()->getFlashdata('validation')['new_password']) ? ' is-invalid' : '' ?>"
+                                               id="new_password" value="<?= old('new_password') ?? '' ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text show-hide-pass" style="cursor: pointer;">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <?= session()->getFlashdata('validation')['new_password'] ?? '' ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm_password">Confirm Password</label>
-                                    <input type="password" name="confirm_password"
-                                           class="form-control<?= isset(session()->getFlashdata('validation')['confirm_password']) ? ' is-invalid' : '' ?>"
-                                           id="confirm_password" value="<?= old('confirm_password') ?? '' ?>">
-                                    <div class="invalid-feedback">
-                                        <?= session()->getFlashdata('validation')['confirm_password'] ?? '' ?>
+                                    <div class="input-group">
+                                        <input type="password" name="confirm_password"
+                                               class="form-control<?= isset(session()->getFlashdata('validation')['confirm_password']) ? ' is-invalid' : '' ?>"
+                                               id="confirm_password" value="<?= old('confirm_password') ?? '' ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text show-hide-pass" style="cursor: pointer;">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <?= session()->getFlashdata('validation')['confirm_password'] ?? '' ?>
+                                        </div>
                                     </div>
                                 </div>
 

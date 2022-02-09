@@ -87,4 +87,17 @@ $(document).ready(function () {
         // });
     }
 
+    // Todo: Switch the classes instead of the HTML markup
+    $('.show-hide-pass').click(function () {
+
+        let targetInputField = $(this).parent().siblings("input");
+        if ((targetInputField).attr("type") === 'password') {
+            $(targetInputField).attr("type", "text");
+            $(this).html('<i class="fas fa-eye"></i>');
+        } else {
+            $(targetInputField).attr("type", "password");
+            $(this).html('<i class="fas fa-eye-slash"></i>');
+        }
+    });
+
 })

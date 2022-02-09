@@ -60,6 +60,7 @@
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email"
+                                           autocomplete="email"
                                            class="form-control <?= (isset($validation) && $validation->hasError('email')) ? 'is-invalid' : ''; ?>"
                                            name="email" value="<?= $admin['email'] ?? ''; ?>" tabindex="1" autofocus>
                                     <?php if (isset($validation) && $validation->hasError('email')): ?>
@@ -79,10 +80,18 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <input id="password" type="password"
-                                           class="form-control <?= (isset($validation) && $validation->hasError('password')) ? 'is-invalid' : ''; ?>"
-                                           name="password"
-                                           tabindex="2">
+                                    <div class="input-group">
+                                        <input id="password" type="password"
+                                               autocomplete="current-password"
+                                               class="form-control <?= (isset($validation) && $validation->hasError('password')) ? 'is-invalid' : ''; ?>"
+                                               name="password"
+                                               tabindex="2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text show-hide-pass" style="cursor: pointer;">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <?php if (isset($validation) && $validation->hasError('password')): ?>
                                         <div class="invalid-feedback">
                                             <?= $validation->getError('password') ?>
