@@ -8,7 +8,7 @@
 "use strict";
 
 $(document).ready(function () {
-    var date = new Date();
+    const date = new Date();
     const fullMonthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
