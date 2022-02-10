@@ -12,9 +12,10 @@ $(document).ready(function () {
     const fullMonthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
+    const tableLizable = $(".datatable-lize");
 
-    if ($(".datatable-lize").length) {
-        var table = $(".datatable-lize").dataTable();
+    if (tableLizable.length) {
+        $(tableLizable).dataTable();
     }
 
     /* Disable submit buttons after form submit
